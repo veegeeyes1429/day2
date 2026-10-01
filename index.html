@@ -2,44 +2,81 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Gopalasubramanian V | Engineering Dossier</title>
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<meta
+    name="description"
+    content="Gopalasubramanian V — Electronics and Communication Engineering portfolio."
+>
+
+<title>VGS — Engineering Portfolio</title>
+
 
 <style>
+
 /* =========================================================
-   VGS ENGINEERING DOSSIER
-   SINGLE FILE / NO EXTERNAL DEPENDENCIES
+   VGS — PHYSICAL ENGINEERING FOLDER
+   Single-file portfolio
+   No frameworks
+   No external libraries
+   No external assets
    ========================================================= */
 
-:root{
-    --desk:#20231f;
-    --desk-dark:#141713;
 
-    --folder:#b79d65;
-    --folder-light:#cbb67f;
-    --folder-dark:#8c733f;
-    --folder-edge:#705a31;
+/* =========================================================
+   DESIGN TOKENS
+   ========================================================= */
 
-    --paper:#e9e1cb;
-    --paper-light:#f3eddb;
-    --paper-shadow:#c9bea3;
+:root {
 
-    --ink:#20231d;
-    --ink-soft:#555449;
-    --ink-muted:#77725f;
+    /* Desk */
+    --desk: #242721;
+    --desk-dark: #171a16;
 
-    --green:#43563d;
-    --green-dark:#29392b;
-    --green-light:#64775a;
+    /* Manila folder */
+    --manila: #b89e64;
+    --manila-light: #d1ba7e;
+    --manila-dark: #947844;
+    --manila-edge: #765e31;
 
-    --line:rgba(53,61,40,.28);
-    --line-dark:rgba(45,51,35,.55);
+    /* Paper */
+    --paper: #eee6d1;
+    --paper-light: #f5efdf;
+    --paper-shadow: #d1c4a5;
 
-    --shadow:0 35px 80px rgba(0,0,0,.50);
+    /* Ink */
+    --ink: #20241e;
+    --ink-soft: #4d5148;
+    --ink-muted: #787561;
 
-    --mono:"Courier New",Courier,monospace;
-    --sans:Arial,Helvetica,sans-serif;
+    /* Engineering green */
+    --green: #40583d;
+    --green-light: #61795a;
+    --green-dark: #263a2a;
+
+    /* Lines */
+    --line: rgba(46, 55, 40, .20);
+    --line-strong: rgba(46, 55, 40, .38);
+
+    /* Fonts */
+    --sans:
+        Inter,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    --display:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    --mono:
+        "Courier New",
+        monospace;
 }
 
 
@@ -47,28 +84,31 @@
    RESET
    ========================================================= */
 
-*{
-    box-sizing:border-box;
+* {
+    box-sizing: border-box;
 }
 
-html{
-    scroll-behavior:smooth;
+html {
+    scroll-behavior: smooth;
 }
 
-body{
-    margin:0;
-    min-height:100vh;
-    overflow-x:hidden;
+body {
 
-    color:var(--ink);
+    margin: 0;
 
-    font-family:var(--sans);
+    min-height: 100vh;
+
+    overflow: hidden;
+
+    color: var(--ink);
+
+    font-family: var(--sans);
 
     background:
         radial-gradient(
-            circle at 50% -10%,
-            rgba(255,255,255,.07),
-            transparent 32rem
+            circle at 50% -20%,
+            rgba(255,255,255,.09),
+            transparent 40%
         ),
         linear-gradient(
             145deg,
@@ -77,173 +117,209 @@ body{
         );
 }
 
+button,
+a {
+    font: inherit;
+}
 
-/* subtle desk texture */
+button {
+    cursor: pointer;
+}
 
-body::before{
-    content:"";
-    position:fixed;
-    inset:0;
-
-    pointer-events:none;
-
-    opacity:.12;
-
-    background-image:
-        linear-gradient(
-            rgba(255,255,255,.025) 1px,
-            transparent 1px
-        ),
-        linear-gradient(
-            90deg,
-            rgba(255,255,255,.018) 1px,
-            transparent 1px
-        );
-
-    background-size:50px 50px;
+a {
+    color: inherit;
+    text-decoration: none;
 }
 
 
 /* =========================================================
-   BOOT SCREEN
+   PHYSICAL DESK TEXTURE
    ========================================================= */
 
-.boot{
-    position:fixed;
-    inset:0;
-    z-index:999;
+body::before {
 
-    display:grid;
-    place-items:center;
+    content: "";
 
-    background:#242720;
+    position: fixed;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    opacity: .13;
+
+    background:
+        repeating-linear-gradient(
+            0deg,
+            rgba(255,255,255,.018) 0 1px,
+            transparent 1px 4px
+        ),
+        repeating-linear-gradient(
+            90deg,
+            rgba(0,0,0,.018) 0 1px,
+            transparent 1px 5px
+        );
+}
+
+
+/* =========================================================
+   OPENING SCREEN
+   ========================================================= */
+
+.boot {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 1000;
+
+    display: grid;
+
+    place-items: center;
+
+    background: #22251f;
 
     transition:
         opacity .7s ease,
         visibility .7s ease;
 }
 
-.boot.hidden{
-    opacity:0;
-    visibility:hidden;
-    pointer-events:none;
+.boot.hide {
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    pointer-events: none;
 }
 
-.boot-box{
-    width:min(620px,88vw);
+.boot-inner {
 
-    color:#ddd4b9;
+    width: min(600px, 86vw);
+
+    color: #d7c897;
 
     font:
-        12px var(--mono);
+        11px var(--mono);
+
+    letter-spacing: .06em;
 }
 
-.boot-line{
-    margin:7px 0;
+.boot-line {
 
-    opacity:0;
+    margin: 7px 0;
+
+    opacity: 0;
 
     animation:
-        bootLine .25s forwards;
+        bootLine .22s forwards;
 }
 
-.boot-line:nth-child(1){animation-delay:.05s}
-.boot-line:nth-child(2){animation-delay:.18s}
-.boot-line:nth-child(3){animation-delay:.31s}
-.boot-line:nth-child(4){animation-delay:.44s}
-.boot-line:nth-child(5){animation-delay:.57s}
-.boot-line:nth-child(6){animation-delay:.70s}
-
-.boot-bar{
-    height:2px;
-    margin-top:20px;
-
-    overflow:hidden;
-
-    background:#3e4238;
+.boot-line:nth-child(1) {
+    animation-delay: .05s;
 }
 
-.boot-bar span{
-    display:block;
+.boot-line:nth-child(2) {
+    animation-delay: .15s;
+}
 
-    width:0;
-    height:100%;
+.boot-line:nth-child(3) {
+    animation-delay: .25s;
+}
 
-    background:#c3ae73;
+.boot-line:nth-child(4) {
+    animation-delay: .35s;
+}
+
+.boot-line:nth-child(5) {
+    animation-delay: .45s;
+}
+
+.boot-progress {
+
+    height: 2px;
+
+    margin-top: 18px;
+
+    overflow: hidden;
+
+    background: #3d4238;
+}
+
+.boot-progress i {
+
+    display: block;
+
+    width: 0;
+
+    height: 100%;
+
+    background: #c7ae6d;
 
     animation:
-        load 1.4s .2s forwards;
+        progress 1.1s .15s forwards;
 }
 
-@keyframes bootLine{
-    to{
-        opacity:1;
+@keyframes bootLine {
+
+    to {
+        opacity: 1;
     }
 }
 
-@keyframes load{
-    to{
-        width:100%;
+@keyframes progress {
+
+    to {
+        width: 100%;
     }
 }
 
 
 /* =========================================================
-   PAGE FRAME
+   FULL SCREEN DESK
    ========================================================= */
 
-.shell{
-    width:min(1420px,94vw);
+.portfolio {
 
-    margin:auto;
-    padding:32px 0 70px;
+    width: 100vw;
+
+    height: 100vh;
+
+    padding: 24px 26px;
+
+    display: flex;
+
+    flex-direction: column;
 }
 
+.desk-label {
 
-/* =========================================================
-   TOP INFORMATION STRIP
-   ========================================================= */
+    height: 28px;
 
-.topbar{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+    flex: 0 0 28px;
 
-    padding:0 4px 17px;
+    display: flex;
 
-    border-bottom:
-        1px solid
-        rgba(230,220,190,.20);
+    justify-content: space-between;
 
-    color:#aaa693;
+    align-items: center;
+
+    color: #aaa792;
 
     font:
-        10px var(--mono);
+        9px var(--mono);
 
-    letter-spacing:.16em;
+    letter-spacing: .14em;
+
+    text-transform: uppercase;
 }
 
-.topbar strong{
-    color:#d2bf85;
-    font-weight:400;
-}
+.desk-label strong {
 
-.status{
-    display:flex;
-    gap:18px;
-}
+    color: #d0bd83;
 
-.dot{
-    display:inline-block;
-
-    width:6px;
-    height:6px;
-
-    margin-right:7px;
-
-    border-radius:50%;
-
-    background:#b8a56e;
+    font-weight: 400;
 }
 
 
@@ -251,618 +327,686 @@ body::before{
    FOLDER
    ========================================================= */
 
-.folder-stage{
-    padding-top:34px;
+.folder {
 
-    perspective:1800px;
-}
+    position: relative;
 
-.folder{
-    position:relative;
+    flex: 1;
 
-    transform-style:preserve-3d;
+    min-height: 0;
 
-    transition:
-        transform .18s ease-out;
-}
+    display: flex;
 
+    flex-direction: column;
 
-/* physical folder tab */
-
-.folder-tab{
-    position:relative;
-
-    width:235px;
-    height:43px;
-
-    margin-left:7%;
-
-    border:
-        1px solid
-        var(--folder-edge);
-
-    border-bottom:0;
-
-    border-radius:
-        10px 10px 0 0;
-
-    background:
-        linear-gradient(
-            180deg,
-            rgba(255,255,255,.13),
-            transparent 40%
-        ),
-        linear-gradient(
-            180deg,
-            var(--folder-light),
-            var(--folder)
+    filter:
+        drop-shadow(
+            0 30px 30px rgba(0,0,0,.22)
         );
 
-    box-shadow:
-        0 -8px 24px rgba(0,0,0,.18);
-}
-
-.folder-tab::after{
-    content:"ENGINEERING / VGS";
-
-    position:absolute;
-
-    left:18px;
-    top:14px;
-
-    color:#62573c;
-
-    font:
-        9px var(--mono);
-
-    letter-spacing:.17em;
+    transition:
+        transform .15s ease-out;
 }
 
 
-/* main physical folder */
+/* =========================================================
+   FOLDER BACK
+   ========================================================= */
 
-.folder-body{
-    position:relative;
+.folder-back {
 
-    min-height:790px;
+    position: absolute;
 
-    overflow:hidden;
+    top: 18px;
+
+    left: 0;
+
+    right: 0;
+
+    bottom: 0;
+
+    z-index: 0;
 
     border:
-        1px solid
-        var(--folder-edge);
+        1px solid var(--manila-edge);
 
     border-radius:
-        0 11px 11px 11px;
+        0 14px 12px 12px;
 
     background:
         linear-gradient(
             135deg,
-            rgba(255,255,255,.10),
+            rgba(255,255,255,.12),
             transparent 30%
         ),
         linear-gradient(
             180deg,
-            var(--folder-light),
-            var(--folder) 58%,
-            #a68b54
+            var(--manila-light),
+            var(--manila) 65%,
+            var(--manila-dark)
         );
 
     box-shadow:
-        var(--shadow),
-        inset 0 0 80px rgba(65,48,20,.13);
+        inset 0 0 90px
+        rgba(67,48,18,.13);
 }
 
-.folder-body::before{
-    content:"";
+.folder-back::after {
 
-    position:absolute;
-    inset:0;
+    content: "";
 
-    pointer-events:none;
+    position: absolute;
+
+    inset: 0;
 
     border:
-        1px solid
-        rgba(70,53,25,.15);
+        1px solid rgba(255,255,255,.12);
 
-    border-radius:inherit;
+    border-radius: inherit;
+
+    pointer-events: none;
 }
 
 
 /* =========================================================
-   FOLDER HEADER
+   TOP FOLDER NAVIGATION
    ========================================================= */
 
-.folder-header{
-    height:70px;
+.folder-nav {
 
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+    position: relative;
 
-    padding:0 25px;
+    z-index: 5;
+
+    height: 76px;
+
+    flex: 0 0 76px;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    gap: 7px;
+
+    padding: 0 14px;
 
     border-bottom:
-        1px solid
-        rgba(50,56,39,.24);
-
-    background:
-        rgba(70,52,24,.10);
-}
-
-.folder-title{
-    display:flex;
-    align-items:center;
-    gap:12px;
-}
-
-.folder-icon{
-    position:relative;
-
-    width:29px;
-    height:22px;
-
-    border:
-        1px solid
-        var(--folder-edge);
-}
-
-.folder-icon::before{
-    content:"";
-
-    position:absolute;
-
-    width:11px;
-    height:4px;
-
-    left:2px;
-    top:-5px;
-
-    border:
-        1px solid
-        var(--folder-edge);
-
-    border-bottom:0;
-}
-
-.folder-title b{
-    color:var(--ink);
-
-    font:
-        12px var(--mono);
-
-    letter-spacing:.12em;
-}
-
-.folder-meta{
-    color:#665e4b;
-
-    font:
-        9px var(--mono);
-
-    letter-spacing:.13em;
+        1px solid rgba(67,52,25,.38);
 }
 
 
 /* =========================================================
-   FOLDER CONTENT STRUCTURE
+   FOLDER BRAND
    ========================================================= */
 
-.contents{
-    display:grid;
+.folder-brand {
 
-    grid-template-columns:250px 1fr;
+    align-self: center;
 
-    min-height:720px;
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    width: 230px;
+
+    padding-left: 8px;
+
+    color: var(--ink);
+}
+
+.folder-mark {
+
+    position: relative;
+
+    width: 29px;
+
+    height: 23px;
+
+    border:
+        1px solid var(--manila-edge);
+
+    background:
+        rgba(255,255,255,.08);
+}
+
+.folder-mark::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 11px;
+
+    height: 4px;
+
+    left: 2px;
+
+    top: -5px;
+
+    border:
+        1px solid var(--manila-edge);
+
+    border-bottom: 0;
+}
+
+.folder-brand b {
+
+    font:
+        600 11px var(--mono);
+
+    letter-spacing: .08em;
+}
+
+.folder-brand small {
+
+    display: block;
+
+    margin-top: 4px;
+
+    color: #6d654f;
+
+    font:
+        8px var(--mono);
 }
 
 
 /* =========================================================
-   LEFT FOLDER INDEX
+   PHYSICAL FOLDER TABS
    ========================================================= */
 
-.sidebar{
-    position:relative;
+.tab {
 
-    padding:20px 15px;
+    position: relative;
 
-    border-right:
-        1px solid
-        var(--line);
+    height: 48px;
 
-    background:
-        rgba(74,55,25,.075);
-}
+    min-width: 126px;
 
-.sidebar-label{
-    padding:
-        0 11px 12px;
+    padding: 0 18px;
 
-    color:#696653;
+    display: flex;
 
-    font:
-        9px var(--mono);
+    align-items: center;
 
-    letter-spacing:.18em;
-}
-
-.nav-item{
-    width:100%;
-
-    display:flex;
-    align-items:center;
-
-    gap:12px;
-
-    margin-bottom:4px;
-    padding:12px 11px;
-
-    cursor:pointer;
+    justify-content: center;
 
     border:
-        1px solid
-        transparent;
+        1px solid var(--manila-edge);
 
-    background:transparent;
+    border-bottom: 0;
 
-    color:#5b5a4e;
-
-    text-align:left;
-
-    transition:.2s ease;
-}
-
-.nav-item:hover{
-    color:var(--ink);
-
-    background:
-        rgba(255,255,255,.15);
-
-    border-color:
-        var(--line);
-}
-
-.nav-item.active{
-    color:var(--green-dark);
+    border-radius:
+        9px 9px 0 0;
 
     background:
         linear-gradient(
-            90deg,
-            rgba(255,255,255,.22),
-            transparent
-        );
-
-    border-color:
-        var(--line-dark);
-}
-
-.nav-num{
-    width:20px;
-
-    color:#716c59;
-
-    font:
-        9px var(--mono);
-}
-
-.nav-name{
-    font:
-        11px var(--mono);
-
-    letter-spacing:.08em;
-}
-
-.nav-item.active .nav-num{
-    color:var(--green-dark);
-}
-
-.sidebar-footer{
-    position:absolute;
-
-    left:18px;
-    right:18px;
-    bottom:18px;
-
-    padding-top:12px;
-
-    border-top:
-        1px solid
-        var(--line);
-
-    color:#666454;
-
-    font:
-        8px/1.8 var(--mono);
-}
-
-
-/* =========================================================
-   PAPER INSIDE FOLDER
-   ========================================================= */
-
-.panel{
-    position:relative;
-
-    min-height:720px;
-
-    padding:30px;
-
-    overflow:hidden;
-
-    background:
-        linear-gradient(
+            180deg,
             rgba(255,255,255,.10),
-            rgba(255,255,255,0)
+            transparent 60%
         ),
-        repeating-linear-gradient(
-            0deg,
-            rgba(70,60,40,.018) 0 1px,
-            transparent 1px 4px
-        ),
-        var(--paper);
+        #a98d53;
+
+    color: #5e563f;
+
+    font:
+        9px var(--mono);
+
+    letter-spacing: .12em;
+
+    transition:
+        height .28s ease,
+        transform .28s ease,
+        background .28s ease,
+        color .28s ease;
+}
+
+.tab:hover {
+
+    height: 53px;
+
+    color: var(--ink);
+}
+
+.tab.active {
+
+    height: 61px;
+
+    transform: translateY(1px);
+
+    background:
+        linear-gradient(
+            180deg,
+            var(--paper-light),
+            var(--paper)
+        );
+
+    color: var(--green-dark);
 
     box-shadow:
-        inset 0 0 45px
-        rgba(65,48,25,.10);
+        0 -5px 15px
+        rgba(45,35,15,.08);
+}
+
+.tab-num {
+
+    position: absolute;
+
+    top: 7px;
+
+    left: 9px;
+
+    opacity: .5;
+
+    font-size: 7px;
 }
 
 
 /* =========================================================
-   SECTIONS
+   PAPER WINDOW
    ========================================================= */
 
-.section{
-    display:none;
+.folder-window {
 
-    animation:
-        sectionIn .35s ease both;
-}
+    position: relative;
 
-.section.active{
-    display:block;
-}
+    z-index: 2;
 
-@keyframes sectionIn{
-    from{
-        opacity:0;
-        transform:translateY(8px);
-    }
+    flex: 1;
 
-    to{
-        opacity:1;
-        transform:none;
-    }
-}
-
-.eyebrow{
-    color:var(--green-dark);
-
-    font:
-        9px var(--mono);
-
-    letter-spacing:.20em;
-
-    text-transform:uppercase;
-}
-
-.section-head{
-    display:flex;
-    justify-content:space-between;
-    align-items:flex-end;
-
-    gap:20px;
-
-    margin-bottom:30px;
-    padding-bottom:18px;
-
-    border-bottom:
-        1px solid
-        var(--line);
-}
-
-.section-head h2{
-    margin:7px 0 0;
-
-    font-size:
-        clamp(30px,4vw,58px);
-
-    letter-spacing:-.045em;
-}
-
-.section-index{
-    color:#716b58;
-
-    font:
-        9px var(--mono);
-}
-
-
-/* =========================================================
-   PROFILE
-   ========================================================= */
-
-.hero{
-    min-height:560px;
-
-    display:grid;
-
-    grid-template-columns:
-        1.25fr .75fr;
-
-    align-items:center;
-
-    gap:42px;
-}
-
-.hero h1{
-    max-width:850px;
+    min-height: 0;
 
     margin:
-        18px 0 28px;
+        0 13px 13px;
 
-    font-size:
-        clamp(48px,7vw,102px);
-
-    line-height:.88;
-
-    letter-spacing:-.07em;
-}
-
-.hero h1 span{
-    color:transparent;
-
-    -webkit-text-stroke:
-        1px rgba(50,57,40,.55);
-}
-
-.hero-copy{
-    max-width:650px;
-
-    color:var(--ink-soft);
-
-    font-size:15px;
-    line-height:1.75;
-}
-
-.hero-meta{
-    display:flex;
-    flex-wrap:wrap;
-
-    gap:8px;
-
-    margin-top:30px;
-}
-
-.chip{
-    padding:8px 10px;
+    overflow: hidden;
 
     border:
-        1px solid
-        var(--line);
+        1px solid rgba(72,59,31,.32);
 
-    color:#57594d;
+    border-radius:
+        0 0 8px 8px;
 
-    background:
-        rgba(65,72,51,.045);
-
-    font:
-        9px var(--mono);
-}
-
-
-/* =========================================================
-   TECHNICAL INSERT
-   ========================================================= */
-
-.instrument{
-    position:relative;
-
-    min-height:370px;
-
-    overflow:hidden;
-
-    border:
-        1px solid
-        rgba(57,64,44,.42);
-
-    background:
-        radial-gradient(
-            circle at 50% 45%,
-            rgba(74,92,55,.10),
-            transparent 40%
-        ),
-        #d8d0b6;
+    background: var(--paper);
 
     box-shadow:
         inset 0 0 60px
-        rgba(70,60,35,.08);
+        rgba(74,57,28,.08);
 }
 
-.instrument-label{
-    position:absolute;
 
-    left:34px;
-    top:34px;
+/* paper grain */
 
-    color:var(--green-dark);
+.folder-window::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    z-index: 20;
+
+    opacity: .55;
+
+    background:
+        repeating-linear-gradient(
+            0deg,
+            rgba(75,65,42,.016) 0 1px,
+            transparent 1px 4px
+        );
+}
+
+
+/* =========================================================
+   PAGE CONTAINER
+   ========================================================= */
+
+.pages {
+
+    position: relative;
+
+    height: 100%;
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   INDIVIDUAL PAGE
+   ========================================================= */
+
+.page {
+
+    position: absolute;
+
+    inset: 0;
+
+    padding:
+        44px
+        58px
+        54px;
+
+    overflow: auto;
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transform:
+        translateX(35px)
+        rotate(.25deg);
+
+    transition:
+        opacity .35s ease,
+        transform .45s cubic-bezier(.2,.8,.2,1),
+        visibility .35s;
+}
+
+.page.active {
+
+    opacity: 1;
+
+    visibility: visible;
+
+    transform: none;
+}
+
+
+/* scrollbar */
+
+.page::-webkit-scrollbar {
+
+    width: 7px;
+}
+
+.page::-webkit-scrollbar-track {
+
+    background: transparent;
+}
+
+.page::-webkit-scrollbar-thumb {
+
+    background: #a79b7d;
+
+    border-radius: 10px;
+}
+
+
+/* =========================================================
+   PAGE HEADER
+   ========================================================= */
+
+.page-top {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-end;
+
+    padding-bottom: 18px;
+
+    margin-bottom: 30px;
+
+    border-bottom:
+        1px solid var(--line);
+}
+
+.kicker {
+
+    color: var(--green-dark);
+
+    font:
+        9px var(--mono);
+
+    letter-spacing: .20em;
+
+    text-transform: uppercase;
+}
+
+.page-title {
+
+    margin:
+        7px 0 0;
+
+    color: var(--ink);
+
+    font-family: var(--display);
+
+    font-size:
+        clamp(42px, 5vw, 74px);
+
+    font-weight: 400;
+
+    line-height: .92;
+
+    letter-spacing: -.045em;
+}
+
+.page-code {
+
+    color: #77715f;
 
     font:
         8px var(--mono);
 
-    letter-spacing:.15em;
+    letter-spacing: .14em;
 }
 
-.instrument-screen{
-    position:absolute;
 
-    inset:22px;
+/* =========================================================
+   PROFILE / HOME
+   ========================================================= */
 
-    display:flex;
-    align-items:center;
-    justify-content:center;
+.home {
+
+    min-height: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        1.35fr .65fr;
+
+    gap: 50px;
+
+    align-items: center;
+}
+
+.home-name {
+
+    margin:
+        17px 0 25px;
+
+    max-width: 900px;
+
+    font-family: var(--display);
+
+    font-size:
+        clamp(58px, 8vw, 118px);
+
+    font-weight: 400;
+
+    line-height: .82;
+
+    letter-spacing: -.065em;
+}
+
+.home-name em {
+
+    color: var(--green);
+
+    font-style: normal;
+}
+
+.home-intro {
+
+    max-width: 650px;
+
+    color: var(--ink-soft);
+
+    font-size: 15px;
+
+    line-height: 1.75;
+}
+
+.home-details {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+    margin-top: 27px;
+}
+
+.detail {
+
+    padding:
+        8px 10px;
 
     border:
-        1px solid
-        var(--line);
-}
+        1px solid var(--line);
 
-.instrument-screen::before{
-    content:"";
+    color: #5d6257;
 
-    position:absolute;
-
-    width:1px;
-    height:100%;
-
-    left:50%;
-
-    background:var(--line);
-}
-
-.instrument-screen::after{
-    content:"";
-
-    position:absolute;
-
-    width:100%;
-    height:1px;
-
-    top:50%;
-
-    background:var(--line);
-}
-
-.wave{
-    position:relative;
-
-    width:82%;
-    height:40%;
-}
-
-.wave svg{
-    width:100%;
-    height:100%;
-}
-
-.instrument-data{
-    position:absolute;
-
-    left:34px;
-    right:34px;
-    bottom:28px;
-
-    display:flex;
-    justify-content:space-between;
-
-    color:#706d5c;
+    background:
+        rgba(64,88,61,.035);
 
     font:
         8px var(--mono);
+
+    letter-spacing: .08em;
 }
 
-.instrument-data b{
-    color:#41493b;
-    font-weight:400;
+
+/* =========================================================
+   ENGINEERING DRAWING
+   ========================================================= */
+
+.technical-plate {
+
+    position: relative;
+
+    min-height: 390px;
+
+    padding: 22px;
+
+    border:
+        1px solid var(--line-strong);
+
+    background:
+        radial-gradient(
+            circle at 50% 50%,
+            rgba(64,88,61,.08),
+            transparent 50%
+        ),
+        #ddd4ba;
+}
+
+.plate-corner {
+
+    position: absolute;
+
+    width: 18px;
+
+    height: 18px;
+
+    border-color:
+        var(--green);
+
+    opacity: .6;
+}
+
+.plate-corner.tl {
+
+    top: 12px;
+    left: 12px;
+
+    border-top: 1px solid;
+    border-left: 1px solid;
+}
+
+.plate-corner.tr {
+
+    top: 12px;
+    right: 12px;
+
+    border-top: 1px solid;
+    border-right: 1px solid;
+}
+
+.plate-corner.bl {
+
+    bottom: 12px;
+    left: 12px;
+
+    border-bottom: 1px solid;
+    border-left: 1px solid;
+}
+
+.plate-corner.br {
+
+    bottom: 12px;
+    right: 12px;
+
+    border-bottom: 1px solid;
+    border-right: 1px solid;
+}
+
+.plate-label {
+
+    color: var(--green-dark);
+
+    font:
+        8px var(--mono);
+
+    letter-spacing: .17em;
+}
+
+.plate-diagram {
+
+    position: absolute;
+
+    inset:
+        60px
+        35px
+        55px;
+
+    display: grid;
+
+    place-items: center;
+}
+
+.plate-diagram svg {
+
+    width: 100%;
+
+    height: 100%;
+}
+
+.plate-data {
+
+    position: absolute;
+
+    bottom: 19px;
+
+    left: 22px;
+
+    right: 22px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    color: #6c6a5c;
+
+    font:
+        8px var(--mono);
 }
 
 
@@ -870,69 +1014,113 @@ body::before{
    ABOUT
    ========================================================= */
 
-.about-grid{
-    display:grid;
+.about-layout {
+
+    display: grid;
 
     grid-template-columns:
         1.1fr .9fr;
 
-    gap:16px;
+    gap: 18px;
 }
 
-.document{
-    min-height:220px;
+.paper-card {
 
-    padding:25px;
+    position: relative;
+
+    padding: 26px;
+
+    border:
+        1px solid var(--line);
+
+    background:
+        rgba(255,255,255,.22);
+
+    box-shadow:
+        3px 5px 0
+        rgba(82,69,42,.035);
+}
+
+
+/* small piece of tape */
+
+.paper-card::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 55px;
+
+    height: 13px;
+
+    right: 18px;
+
+    top: -7px;
+
+    transform: rotate(2deg);
+
+    background:
+        rgba(191,175,130,.30);
 
     border:
         1px solid
-        var(--line);
-
-    background:
-        rgba(255,255,255,.18);
+        rgba(120,105,72,.12);
 }
 
-.document h3{
-    margin-bottom:18px;
+.card-label {
 
-    color:var(--green-dark);
+    margin-bottom: 18px;
+
+    color: var(--green-dark);
 
     font:
-        12px var(--mono);
+        9px var(--mono);
 
-    letter-spacing:.10em;
+    letter-spacing: .16em;
 }
 
-.document p{
-    color:var(--ink-soft);
+.paper-card p {
 
-    font-size:14px;
-    line-height:1.75;
+    color: var(--ink-soft);
+
+    font-size: 14px;
+
+    line-height: 1.8;
 }
 
-.spec{
-    display:grid;
 
-    grid-template-columns:120px 1fr;
+/* specification table */
+
+.spec {
+
+    display: grid;
+
+    grid-template-columns:
+        120px 1fr;
+}
+
+.spec div {
+
+    padding:
+        11px 0;
+
+    border-bottom:
+        1px solid
+        rgba(50,60,42,.10);
 
     font:
         10px var(--mono);
 }
 
-.spec div{
-    padding:10px 0;
+.spec div:nth-child(odd) {
 
-    border-bottom:
-        1px solid
-        rgba(60,65,45,.12);
+    color: #7a735f;
 }
 
-.spec div:nth-child(odd){
-    color:#77705e;
-}
+.spec div:nth-child(even) {
 
-.spec div:nth-child(even){
-    color:#30352d;
+    color: #343a31;
 }
 
 
@@ -940,109 +1128,142 @@ body::before{
    PROJECTS
    ========================================================= */
 
-.projects{
-    display:grid;
+.project-grid {
+
+    display: grid;
 
     grid-template-columns:
-        repeat(2,1fr);
+        repeat(2, 1fr);
 
-    gap:15px;
+    gap: 18px;
 }
 
-.project{
-    position:relative;
+.project-card {
 
-    min-height:300px;
+    position: relative;
 
-    padding:23px;
+    min-height: 330px;
 
-    overflow:hidden;
+    padding: 27px;
+
+    overflow: hidden;
 
     border:
-        1px solid
-        var(--line);
+        1px solid var(--line);
 
     background:
-        rgba(255,255,255,.13);
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.18),
+            transparent
+        ),
+        rgba(255,255,255,.12);
 
-    transition:.25s ease;
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease,
+        border-color .3s ease;
 }
 
-.project:hover{
-    transform:translateY(-4px);
+.project-card:hover {
+
+    transform:
+        translateY(-6px)
+        rotate(-.2deg);
 
     border-color:
-        var(--line-dark);
+        var(--line-strong);
 
     box-shadow:
-        0 18px 45px
-        rgba(50,40,20,.18);
+        10px 15px 30px
+        rgba(61,48,25,.12);
 }
 
-.project::after{
-    content:"";
 
-    position:absolute;
+/* engineering rings */
 
-    width:180px;
-    height:180px;
+.project-card::before {
 
-    right:-80px;
-    bottom:-80px;
+    content: "";
+
+    position: absolute;
+
+    right: -65px;
+
+    bottom: -65px;
+
+    width: 190px;
+
+    height: 190px;
 
     border:
         1px solid
-        rgba(60,72,45,.20);
+        rgba(64,88,61,.18);
 
-    border-radius:50%;
+    border-radius: 50%;
 
     box-shadow:
-        0 0 0 20px
-        rgba(60,72,45,.025),
-        0 0 0 40px
-        rgba(60,72,45,.018);
+        0 0 0 25px
+        rgba(64,88,61,.025),
+
+        0 0 0 50px
+        rgba(64,88,61,.018);
 }
 
-.project-number{
-    color:#77715f;
+.project-no {
+
+    color: #7d7661;
 
     font:
-        9px var(--mono);
+        8px var(--mono);
 }
 
-.project h3{
+.project-card h3 {
+
     margin:
-        42px 0 12px;
+        50px 0 12px;
 
-    font-size:27px;
+    font-family: var(--display);
 
-    letter-spacing:-.03em;
+    font-size: 32px;
+
+    font-weight: 400;
+
+    letter-spacing: -.035em;
 }
 
-.project p{
-    color:#626052;
+.project-card p {
 
-    font-size:13px;
-    line-height:1.65;
+    max-width: 520px;
+
+    color: #626257;
+
+    font-size: 13px;
+
+    line-height: 1.75;
 }
 
-.project-tags{
-    display:flex;
-    flex-wrap:wrap;
+.tags {
 
-    gap:6px;
+    display: flex;
 
-    margin-top:22px;
+    flex-wrap: wrap;
+
+    gap: 6px;
+
+    margin-top: 25px;
 }
 
-.project-tag{
-    padding:5px 7px;
+.tag {
 
-    color:#6c6858;
+    padding:
+        6px 8px;
 
     border:
         1px solid
-        rgba(55,65,43,.16);
+        rgba(50,60,42,.15);
+
+    color: #626958;
 
     font:
         8px var(--mono);
@@ -1053,65 +1274,71 @@ body::before{
    SKILLS
    ========================================================= */
 
-.skills-grid{
-    display:grid;
+.skill-grid {
+
+    display: grid;
 
     grid-template-columns:
-        repeat(3,1fr);
+        repeat(3, 1fr);
 
-    gap:12px;
+    gap: 14px;
 }
 
-.skill-box{
-    min-height:180px;
+.skill {
 
-    padding:20px;
+    min-height: 205px;
+
+    padding: 22px;
 
     border:
-        1px solid
-        var(--line);
+        1px solid var(--line);
 
     background:
-        rgba(255,255,255,.13);
+        rgba(255,255,255,.15);
 }
 
-.skill-box h3{
-    margin-bottom:22px;
+.skill h3 {
 
-    color:var(--green-dark);
+    margin:
+        0 0 20px;
+
+    color: var(--green-dark);
 
     font:
         10px var(--mono);
 
-    letter-spacing:.15em;
+    letter-spacing: .16em;
 }
 
-.skill-box ul{
-    margin:0;
-    padding:0;
+.skill ul {
 
-    list-style:none;
+    margin: 0;
+
+    padding: 0;
+
+    list-style: none;
 }
 
-.skill-box li{
-    padding:8px 0;
+.skill li {
+
+    padding:
+        8px 0;
 
     border-bottom:
         1px solid
-        rgba(60,65,45,.10);
+        rgba(50,60,42,.10);
 
-    color:#57584e;
+    color: #55594f;
 
     font:
         12px var(--mono);
 }
 
-.skill-box li::before{
-    content:"//";
+.skill li::before {
 
-    margin-right:9px;
+    content: "— ";
 
-    color:#667259;
+    color: var(--green-light);
 }
 
 
@@ -1119,120 +1346,143 @@ body::before{
    THAZHAL
    ========================================================= */
 
-.thazhal{
-    display:grid;
+.thazhal-layout {
+
+    display: grid;
 
     grid-template-columns:
-        .7fr 1.3fr;
+        .65fr 1.35fr;
 
-    gap:16px;
+    gap: 18px;
 }
 
-.thazhal-mark{
-    position:relative;
+.thazhal-cover {
 
-    min-height:430px;
+    position: relative;
 
-    display:grid;
-    place-items:center;
+    min-height: 470px;
+
+    display: grid;
+
+    place-items: center;
 
     border:
         1px solid
-        var(--line-dark);
+        var(--line-strong);
 
     background:
         radial-gradient(
             circle,
-            rgba(70,90,55,.10),
-            transparent 38%
+            rgba(64,88,61,.10),
+            transparent 40%
         ),
-        #d3c7a7;
+        #d8ceb1;
 }
 
-.thazhal-mark small{
-    position:absolute;
+.thazhal-cover::before {
 
-    top:18px;
-    left:18px;
+    content:
+        "TECHNICAL COMMUNITY / INTERNAL";
 
-    color:#706b59;
+    position: absolute;
+
+    top: 18px;
+
+    left: 18px;
+
+    color: #6c705e;
+
+    font:
+        8px var(--mono);
+
+    letter-spacing: .15em;
+}
+
+.thazhal-cover strong {
+
+    color: transparent;
+
+    font-family: var(--display);
+
+    font-size: 150px;
+
+    font-weight: 400;
+
+    -webkit-text-stroke:
+        1px var(--green);
+}
+
+.thazhal-copy {
+
+    padding: 32px;
+
+    border:
+        1px solid var(--line);
+
+    background:
+        rgba(255,255,255,.18);
+}
+
+.thazhal-copy h3 {
+
+    margin:
+        7px 0 20px;
+
+    font-family: var(--display);
+
+    font-size: 58px;
+
+    font-weight: 400;
+
+    letter-spacing: -.05em;
+}
+
+.thazhal-copy p {
+
+    color: #5c5e54;
+
+    font-size: 14px;
+
+    line-height: 1.85;
+}
+
+.fact-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 1px;
+
+    margin-top: 25px;
+
+    background:
+        var(--line);
+}
+
+.fact {
+
+    padding: 16px;
+
+    background:
+        var(--paper-light);
+
+    color: #77715f;
 
     font:
         8px var(--mono);
 }
 
-.thazhal-mark strong{
-    color:transparent;
+.fact b {
 
-    font-size:80px;
+    display: block;
 
-    letter-spacing:-.08em;
+    margin-top: 8px;
 
-    -webkit-text-stroke:
-        1px
-        var(--green-dark);
-}
+    color: #343930;
 
-.thazhal-copy{
-    padding:28px;
-
-    border:
-        1px solid
-        var(--line);
-
-    background:
-        rgba(255,255,255,.15);
-}
-
-.thazhal-copy h3{
-    margin:
-        8px 0 20px;
-
-    font-size:44px;
-
-    letter-spacing:-.05em;
-}
-
-.thazhal-copy p{
-    color:#59594e;
-
-    line-height:1.8;
-}
-
-.thazhal-facts{
-    display:grid;
-
-    grid-template-columns:
-        repeat(2,1fr);
-
-    gap:1px;
-
-    margin-top:25px;
-
-    background:
-        var(--line);
-}
-
-.thazhal-facts div{
-    padding:16px;
-
-    color:#716b58;
-
-    background:
-        var(--paper-light);
-
-    font:
-        9px var(--mono);
-}
-
-.thazhal-facts b{
-    display:block;
-
-    margin-top:7px;
-
-    color:#363a31;
-
-    font-weight:400;
+    font-weight: 400;
 }
 
 
@@ -1240,146 +1490,230 @@ body::before{
    CONTACT
    ========================================================= */
 
-.contact{
-    display:grid;
+.contact-layout {
+
+    display: grid;
 
     grid-template-columns:
-        1fr 1fr;
+        1fr .8fr;
 
-    gap:16px;
+    gap: 18px;
 }
 
-.contact-card,
-.cinema{
-    min-height:290px;
+.contact-card {
 
-    padding:25px;
+    padding: 30px;
 
     border:
-        1px solid
-        var(--line);
+        1px solid var(--line);
 
     background:
-        rgba(255,255,255,.13);
+        rgba(255,255,255,.16);
 }
 
-.contact-card h3{
+.contact-card h3 {
+
     margin:
-        10px 0 24px;
+        8px 0 25px;
 
-    font-size:30px;
+    font-family: var(--display);
 
-    letter-spacing:-.04em;
+    font-size: 46px;
+
+    font-weight: 400;
+
+    letter-spacing: -.045em;
 }
 
-.contact-link{
-    display:block;
+.contact-link {
 
-    padding:13px 0;
+    display: flex;
+
+    gap: 20px;
+
+    padding:
+        14px 0;
 
     border-bottom:
         1px solid
-        rgba(55,60,42,.11);
+        rgba(50,60,42,.11);
 
-    color:#56574d;
+    color: #55584e;
 
     font:
         11px var(--mono);
 }
 
-.contact-link:hover{
-    color:var(--green-dark);
+.contact-link span {
+
+    width: 80px;
+
+    color: #7b755f;
 }
 
-.contact-link span{
-    display:inline-block;
+.contact-link:hover {
 
-    width:80px;
-
-    color:#77705d;
+    color: var(--green-dark);
 }
 
 
 /* =========================================================
-   CINEMA REFERENCE
+   SIGNATURE PANEL
    ========================================================= */
 
-.cinema{
-    position:relative;
+.signature-card {
 
-    overflow:hidden;
-}
+    position: relative;
 
-.cinema::before{
-    content:"";
+    min-height: 300px;
 
-    position:absolute;
+    padding: 30px;
 
-    top:0;
-    left:0;
-    right:0;
-
-    height:4px;
+    border:
+        1px solid var(--line);
 
     background:
-        repeating-linear-gradient(
-            90deg,
-            var(--green-dark) 0 12px,
-            transparent 12px 20px
+        linear-gradient(
+            145deg,
+            rgba(64,88,61,.07),
+            rgba(255,255,255,.12)
         );
-
-    opacity:.45;
 }
 
-.cinema h3{
-    margin:
-        8px 0 22px;
+.signature-card::after {
 
-    color:var(--green-dark);
+    content: "VGS";
 
-    font:
-        10px var(--mono);
+    position: absolute;
 
-    letter-spacing:.20em;
+    right: 25px;
+
+    bottom: 12px;
+
+    color:
+        rgba(64,88,61,.10);
+
+    font-family: var(--display);
+
+    font-size: 110px;
+
+    font-weight: 700;
 }
 
-.frame{
-    color:#363a31;
+.signature-line {
 
-    font:
-        72px var(--mono);
+    margin-top: 50px;
 
-    letter-spacing:-.08em;
-}
+    width: 80%;
 
-.cinema p{
-    color:#686352;
+    padding-bottom: 8px;
 
-    font:
-        10px/1.8 var(--mono);
-}
+    border-bottom:
+        1px solid var(--green);
 
-.frame-note{
-    color:#5d674e !important;
+    color: var(--green-dark);
+
+    font-family: var(--display);
+
+    font-size: 25px;
+
+    font-style: italic;
 }
 
 
 /* =========================================================
-   FOOTER
+   PHYSICAL PAPER DETAILS
    ========================================================= */
 
-.footer{
-    display:flex;
-    justify-content:space-between;
+.paperclip {
 
-    padding-top:18px;
+    position: absolute;
 
-    color:#aaa38d;
+    width: 55px;
+
+    height: 100px;
+
+    border:
+        3px solid #8d8a7a;
+
+    border-bottom: 0;
+
+    border-radius:
+        30px 30px 0 0;
+
+    opacity: .45;
+
+    pointer-events: none;
+}
+
+.paperclip.one {
+
+    right: 25px;
+
+    top: 95px;
+
+    transform:
+        rotate(9deg);
+}
+
+
+/* rubber stamp */
+
+.stamp {
+
+    position: absolute;
+
+    padding:
+        9px 13px;
+
+    border:
+        2px solid
+        rgba(132,88,75,.38);
+
+    color:
+        rgba(132,88,75,.58);
 
     font:
         8px var(--mono);
 
-    letter-spacing:.10em;
+    letter-spacing: .13em;
+
+    transform:
+        rotate(-8deg);
+
+    pointer-events: none;
+}
+
+.stamp.home {
+
+    right: 50px;
+
+    top: 50px;
+}
+
+.stamp.about {
+
+    right: 65px;
+
+    bottom: 50px;
+}
+
+
+/* handwritten engineering note */
+
+.annotation {
+
+    color: var(--green);
+
+    font-family:
+        "Comic Sans MS",
+        "Segoe Print",
+        cursive;
+
+    font-size: 13px;
+
+    transform:
+        rotate(-4deg);
 }
 
 
@@ -1387,108 +1721,138 @@ body::before{
    RESPONSIVE
    ========================================================= */
 
-@media(max-width:900px){
+@media (max-width: 1000px) {
 
-    .contents{
-        grid-template-columns:1fr;
+    body {
+        overflow: auto;
     }
 
-    .sidebar{
-        display:flex;
+    .portfolio {
 
-        overflow-x:auto;
+        height: auto;
 
-        padding:10px;
+        min-height: 100vh;
 
-        border-right:0;
-
-        border-bottom:
-            1px solid
-            var(--line);
+        padding: 12px;
     }
 
-    .sidebar-label,
-    .sidebar-footer{
-        display:none;
+    .desk-label {
+
+        margin-bottom: 8px;
     }
 
-    .nav-item{
-        min-width:max-content;
-        margin:0;
+    .folder {
+
+        min-height:
+            calc(100vh - 52px);
     }
 
-    .hero,
-    .about-grid,
-    .thazhal,
-    .contact{
-        grid-template-columns:1fr;
+    .folder-nav {
+
+        height: auto;
+
+        min-height: 75px;
+
+        overflow-x: auto;
+
+        align-items: flex-end;
+
+        padding-top: 8px;
     }
 
-    .hero{
-        min-height:auto;
+    .folder-brand {
+
+        min-width: 190px;
     }
 
-    .skills-grid{
+    .tab {
+
+        min-width: 110px;
+    }
+
+    .folder-window {
+
+        min-height:
+            calc(100vh - 160px);
+    }
+
+    .home,
+    .about-layout,
+    .thazhal-layout,
+    .contact-layout {
+
+        grid-template-columns: 1fr;
+    }
+
+    .skill-grid {
+
         grid-template-columns:
-            repeat(2,1fr);
+            repeat(2, 1fr);
+    }
+
+    .home {
+
+        padding-top: 30px;
     }
 }
 
 
-@media(max-width:600px){
+@media (max-width: 650px) {
 
-    .shell{
-        width:96vw;
+    .desk-label span:last-child {
 
-        padding-top:18px;
+        display: none;
     }
 
-    .topbar .status span:not(:first-child){
-        display:none;
+    .folder-brand {
+
+        display: none;
     }
 
-    .folder-tab{
-        width:180px;
+    .folder-nav {
 
-        margin-left:5%;
+        justify-content: flex-start;
     }
 
-    .folder-body{
-        border-radius:
-            0 9px 9px 9px;
+    .tab {
+
+        min-width: 102px;
     }
 
-    .panel{
-        padding:18px;
+    .page {
+
+        padding:
+            30px
+            22px
+            40px;
     }
 
-    .hero{
-        gap:25px;
+    .home-name {
+
+        font-size: 54px;
     }
 
-    .hero h1{
-        font-size:52px;
+    .project-grid,
+    .skill-grid {
+
+        grid-template-columns: 1fr;
     }
 
-    .instrument{
-        min-height:290px;
+    .page-title {
+
+        font-size: 45px;
     }
 
-    .projects,
-    .skills-grid{
-        grid-template-columns:1fr;
-    }
+    .paper-card,
+    .project-card,
+    .skill,
+    .contact-card,
+    .signature-card {
 
-    .section-head{
-        align-items:flex-start;
-    }
-
-    .footer{
-        display:block;
-
-        line-height:2;
+        padding: 20px;
     }
 }
+
 </style>
 </head>
 
@@ -1496,20 +1860,20 @@ body::before{
 <body>
 
 
-<!-- =====================================================
-     BOOT
-     ===================================================== -->
+<!-- =========================================================
+     OPENING SCREEN
+     ========================================================= -->
 
 <div class="boot" id="boot">
 
-    <div class="boot-box">
+    <div class="boot-inner">
 
         <div class="boot-line">
-            VGS / ENGINEERING DOSSIER
+            VGS / PERSONAL ENGINEERING FOLDER
         </div>
 
         <div class="boot-line">
-            INITIALISING DOCUMENT STRUCTURE...
+            OPENING DOCUMENT INDEX...
         </div>
 
         <div class="boot-line">
@@ -1517,19 +1881,15 @@ body::before{
         </div>
 
         <div class="boot-line">
-            CHECKING INTERFACE INTEGRITY........ OK
+            CHECKING EXTERNAL DEPENDENCIES........ NONE
         </div>
 
         <div class="boot-line">
-            EXTERNAL DEPENDENCIES........ NONE
+            READY.
         </div>
 
-        <div class="boot-line">
-            OPENING FOLDER.
-        </div>
-
-        <div class="boot-bar">
-            <span></span>
+        <div class="boot-progress">
+            <i></i>
         </div>
 
     </div>
@@ -1538,1001 +1898,1427 @@ body::before{
 
 
 
-<main class="shell">
+<!-- =========================================================
+     FULL SCREEN PORTFOLIO
+     ========================================================= -->
+
+<main class="portfolio">
 
 
-<!-- =====================================================
-     TOP BAR
-     ===================================================== -->
+    <!-- =====================================================
+         DESK LABEL
+         ===================================================== -->
 
-<header class="topbar">
-
-    <div>
-        <strong>VGS</strong>
-        / PERSONAL ENGINEERING DOSSIER
-    </div>
-
-    <div class="status">
+    <div class="desk-label">
 
         <span>
-            <i class="dot"></i>
-            SYSTEM ONLINE
+            <strong>VGS</strong>
+            / PERSONAL ENGINEERING PORTFOLIO
         </span>
 
         <span>
-            LOCAL / 001
-        </span>
-
-        <span>
-            REV. 01
+            PHYSICAL DOSSIER / REV. 01
         </span>
 
     </div>
 
-</header>
 
 
+    <!-- =====================================================
+         FOLDER
+         ===================================================== -->
 
-<!-- =====================================================
-     PHYSICAL FOLDER
-     ===================================================== -->
+    <section class="folder">
 
-<div class="folder-stage">
 
-<div class="folder" id="folder">
+        <!-- Physical folder body -->
 
+        <div class="folder-back"></div>
 
-<!-- folder tab -->
 
-<div class="folder-tab"></div>
 
+        <!-- =================================================
+             TOP FOLDER TABS
+             ================================================= -->
 
+        <nav class="folder-nav">
 
-<!-- folder body -->
 
-<div class="folder-body">
+            <!-- Folder identity -->
 
+            <div class="folder-brand">
 
-<!-- =====================================================
-     FOLDER HEADER
-     ===================================================== -->
+                <div class="folder-mark"></div>
 
-<div class="folder-header">
+                <div>
 
-    <div class="folder-title">
+                    <b>
+                        GOPALASUBRAMANIAN_V
+                    </b>
 
-        <div class="folder-icon"></div>
+                    <small>
+                        ENGINEERING DOSSIER
+                    </small>
 
-        <b>
-            GOPALASUBRAMANIAN_V
-        </b>
+                </div>
 
-    </div>
+            </div>
 
-    <div class="folder-meta">
-        ECE / ENGINEERING / PERSONAL DOSSIER
-    </div>
 
-</div>
 
+            <!-- Profile -->
 
-
-<!-- =====================================================
-     CONTENTS
-     ===================================================== -->
-
-<div class="contents">
-
-
-<!-- =====================================================
-     SIDEBAR
-     ===================================================== -->
-
-<aside class="sidebar">
-
-    <div class="sidebar-label">
-        DOCUMENT INDEX
-    </div>
-
-
-    <button
-        class="nav-item active"
-        data-section="profile"
-    >
-        <span class="nav-num">01</span>
-        <span class="nav-name">PROFILE</span>
-    </button>
-
-
-    <button
-        class="nav-item"
-        data-section="about"
-    >
-        <span class="nav-num">02</span>
-        <span class="nav-name">ABOUT</span>
-    </button>
-
-
-    <button
-        class="nav-item"
-        data-section="projects"
-    >
-        <span class="nav-num">03</span>
-        <span class="nav-name">PROJECTS</span>
-    </button>
-
-
-    <button
-        class="nav-item"
-        data-section="skills"
-    >
-        <span class="nav-num">04</span>
-        <span class="nav-name">SKILLS</span>
-    </button>
-
-
-    <button
-        class="nav-item"
-        data-section="thazhal"
-    >
-        <span class="nav-num">05</span>
-        <span class="nav-name">THAZHAL</span>
-    </button>
-
-
-    <button
-        class="nav-item"
-        data-section="contact"
-    >
-        <span class="nav-num">06</span>
-        <span class="nav-name">CONTACT</span>
-    </button>
-
-
-    <div class="sidebar-footer">
-
-        CLASSIFICATION: PUBLIC<br>
-        FORMAT: PHYSICAL FOLDER<br>
-        STATUS: DEVELOPING<br>
-        © VGS
-
-    </div>
-
-</aside>
-
-
-
-<!-- =====================================================
-     PAPER CONTENT
-     ===================================================== -->
-
-<section class="panel">
-
-
-
-<!-- =====================================================
-     PROFILE
-     ===================================================== -->
-
-<div
-    class="section active"
-    id="profile"
->
-
-<div class="hero">
-
-
-<div>
-
-    <div class="eyebrow">
-        Electronics & Communication Engineer
-    </div>
-
-
-    <h1>
-        GOPALASUBRAMANIAN
-        <span>V</span>
-    </h1>
-
-
-    <p class="hero-copy">
-
-        An Electronics and Communication Engineering
-        student focused on understanding and building
-        systems across electronics, VLSI, embedded
-        technology and software.
-
-    </p>
-
-
-    <div class="hero-meta">
-
-        <span class="chip">
-            VLSI
-        </span>
-
-        <span class="chip">
-            EMBEDDED SYSTEMS
-        </span>
-
-        <span class="chip">
-            ELECTRONICS
-        </span>
-
-        <span class="chip">
-            SOFTWARE
-        </span>
-
-    </div>
-
-</div>
-
-
-
-<!-- technical paper insert -->
-
-<div class="instrument">
-
-    <div class="instrument-label">
-        SIGNAL / PROFILE TRACE
-    </div>
-
-
-    <div class="instrument-screen">
-
-        <div class="wave">
-
-            <svg
-                viewBox="0 0 600 180"
-                preserveAspectRatio="none"
+            <button
+                class="tab active"
+                data-page="home"
             >
 
-                <path
-                    d="
-                    M0 100
-                    L70 100
-                    L90 40
-                    L110 160
-                    L130 100
-                    L200 100
-                    L220 72
-                    L240 128
-                    L260 100
-                    L330 100
-                    L350 25
-                    L370 175
-                    L390 100
-                    L470 100
-                    L490 65
-                    L510 135
-                    L530 100
-                    L600 100
-                    "
-                    fill="none"
-                    stroke="#43563d"
-                    stroke-width="2"
-                />
+                <span class="tab-num">
+                    01
+                </span>
 
-            </svg>
+                PROFILE
+
+            </button>
+
+
+
+            <!-- About -->
+
+            <button
+                class="tab"
+                data-page="about"
+            >
+
+                <span class="tab-num">
+                    02
+                </span>
+
+                ABOUT
+
+            </button>
+
+
+
+            <!-- Projects -->
+
+            <button
+                class="tab"
+                data-page="projects"
+            >
+
+                <span class="tab-num">
+                    03
+                </span>
+
+                PROJECTS
+
+            </button>
+
+
+
+            <!-- Skills -->
+
+            <button
+                class="tab"
+                data-page="skills"
+            >
+
+                <span class="tab-num">
+                    04
+                </span>
+
+                SKILLS
+
+            </button>
+
+
+
+            <!-- Thazhal -->
+
+            <button
+                class="tab"
+                data-page="thazhal"
+            >
+
+                <span class="tab-num">
+                    05
+                </span>
+
+                THAZHAL
+
+            </button>
+
+
+
+            <!-- Contact -->
+
+            <button
+                class="tab"
+                data-page="contact"
+            >
+
+                <span class="tab-num">
+                    06
+                </span>
+
+                CONTACT
+
+            </button>
+
+
+        </nav>
+
+
+
+        <!-- =================================================
+             DOCUMENT WINDOW
+             ================================================= -->
+
+        <div class="folder-window">
+
+
+            <div class="pages">
+
+
+
+                <!-- =================================================
+                     PROFILE
+                     ================================================= -->
+
+                <article
+                    class="page active"
+                    id="home"
+                >
+
+
+                    <!-- physical stamp -->
+
+                    <div class="stamp home">
+                        ORIGINAL DOCUMENT
+                    </div>
+
+
+                    <!-- paperclip -->
+
+                    <div class="paperclip one"></div>
+
+
+
+                    <div class="home">
+
+
+                        <!-- =========================================
+                             LEFT PROFILE
+                             ========================================= -->
+
+                        <div>
+
+
+                            <div class="kicker">
+                                ELECTRONICS & COMMUNICATION ENGINEER
+                            </div>
+
+
+
+                            <h1 class="home-name">
+
+                                GOPALASUBRAMANIAN
+
+                                <em>
+                                    V
+                                </em>
+
+                            </h1>
+
+
+
+                            <p class="home-intro">
+
+                                An Electronics and Communication
+                                Engineering student interested in
+                                understanding how systems work from
+                                the circuit level upward, with a
+                                growing focus on VLSI, embedded
+                                systems, electronics and software.
+
+                            </p>
+
+
+
+                            <div class="home-details">
+
+                                <span class="detail">
+                                    VLSI
+                                </span>
+
+                                <span class="detail">
+                                    EMBEDDED SYSTEMS
+                                </span>
+
+                                <span class="detail">
+                                    ELECTRONICS
+                                </span>
+
+                                <span class="detail">
+                                    SOFTWARE
+                                </span>
+
+                            </div>
+
+
+
+                            <p
+                                class="annotation"
+                                style="margin-top:34px"
+                            >
+                                build → understand → refine
+                            </p>
+
+
+                        </div>
+
+
+
+                        <!-- =========================================
+                             ENGINEERING DRAWING
+                             ========================================= -->
+
+                        <div class="technical-plate">
+
+
+                            <span class="plate-corner tl"></span>
+                            <span class="plate-corner tr"></span>
+                            <span class="plate-corner bl"></span>
+                            <span class="plate-corner br"></span>
+
+
+                            <div class="plate-label">
+
+                                SYSTEM TRACE / 001
+
+                            </div>
+
+
+
+                            <div class="plate-diagram">
+
+
+                                <svg
+                                    viewBox="0 0 600 400"
+                                    preserveAspectRatio="none"
+                                >
+
+
+                                    <!-- Engineering grid -->
+
+                                    <g
+                                        stroke="#71816b"
+                                        stroke-width=".6"
+                                        opacity=".22"
+                                    >
+
+                                        <path d="M0 80 H600"/>
+                                        <path d="M0 160 H600"/>
+                                        <path d="M0 240 H600"/>
+                                        <path d="M0 320 H600"/>
+
+                                        <path d="M100 0 V400"/>
+                                        <path d="M200 0 V400"/>
+                                        <path d="M300 0 V400"/>
+                                        <path d="M400 0 V400"/>
+                                        <path d="M500 0 V400"/>
+
+                                    </g>
+
+
+
+                                    <!-- Circuit trace -->
+
+                                    <g
+                                        fill="none"
+                                        stroke="#40583d"
+                                        stroke-width="2"
+                                    >
+
+                                        <path
+                                            d="
+                                            M20 210
+                                            H115
+                                            V110
+                                            H180
+                                            V210
+                                            H245
+                                            V285
+                                            H330
+                                            V145
+                                            H420
+                                            V210
+                                            H575
+                                            "
+                                        />
+
+                                        <path
+                                            d="
+                                            M115 110
+                                            V65
+                                            H210
+                                            "
+                                        />
+
+                                        <path
+                                            d="
+                                            M330 285
+                                            V340
+                                            H440
+                                            "
+                                        />
+
+                                    </g>
+
+
+
+                                    <!-- Nodes -->
+
+                                    <g fill="#40583d">
+
+                                        <circle
+                                            cx="115"
+                                            cy="210"
+                                            r="5"
+                                        />
+
+                                        <circle
+                                            cx="180"
+                                            cy="210"
+                                            r="5"
+                                        />
+
+                                        <circle
+                                            cx="245"
+                                            cy="210"
+                                            r="5"
+                                        />
+
+                                        <circle
+                                            cx="330"
+                                            cy="285"
+                                            r="5"
+                                        />
+
+                                        <circle
+                                            cx="420"
+                                            cy="210"
+                                            r="5"
+                                        />
+
+                                    </g>
+
+
+
+                                    <!-- Waveform -->
+
+                                    <path
+                                        d="
+                                        M20 350
+                                        L65 350
+                                        L80 305
+                                        L95 350
+                                        L150 350
+                                        L165 315
+                                        L180 350
+                                        L235 350
+                                        L250 290
+                                        L265 350
+                                        L320 350
+                                        L335 315
+                                        L350 350
+                                        L405 350
+                                        L420 300
+                                        L435 350
+                                        H575
+                                        "
+                                        fill="none"
+                                        stroke="#61795a"
+                                        stroke-width="1.5"
+                                    />
+
+
+                                </svg>
+
+                            </div>
+
+
+
+                            <div class="plate-data">
+
+                                <span>
+                                    MODE / ENGINEER
+                                </span>
+
+                                <span>
+                                    FOCUS / BUILD
+                                </span>
+
+                                <span>
+                                    REV / 01
+                                </span>
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                </article>
+
+
+
+                <!-- =================================================
+                     ABOUT
+                     ================================================= -->
+
+                <article
+                    class="page"
+                    id="about"
+                >
+
+
+                    <div class="stamp about">
+                        PROFILE RECORD
+                    </div>
+
+
+
+                    <header class="page-top">
+
+                        <div>
+
+                            <div class="kicker">
+                                DOCUMENT 02 / IDENTITY
+                            </div>
+
+                            <h2 class="page-title">
+                                About
+                            </h2>
+
+                        </div>
+
+
+                        <div class="page-code">
+                            PROFILE_RECORD
+                        </div>
+
+                    </header>
+
+
+
+                    <div class="about-layout">
+
+
+                        <!-- Engineering profile -->
+
+                        <section class="paper-card">
+
+                            <div class="card-label">
+                                ENGINEERING PROFILE
+                            </div>
+
+
+                            <p>
+
+                                Electronics and Communication
+                                Engineering student interested
+                                in VLSI, embedded systems and
+                                electronics.
+
+                            </p>
+
+
+                            <p>
+
+                                The aim is not simply to collect
+                                technologies. The useful part is
+                                understanding the mechanism
+                                underneath them, connecting the
+                                theory to a working system, and
+                                then improving the system.
+
+                            </p>
+
+
+                            <p class="annotation">
+                                understand the mechanism.
+                            </p>
+
+                        </section>
+
+
+
+                        <!-- Identification -->
+
+                        <section class="paper-card">
+
+                            <div class="card-label">
+                                IDENTIFICATION DATA
+                            </div>
+
+
+                            <div class="spec">
+
+                                <div>
+                                    NAME
+                                </div>
+
+                                <div>
+                                    GOPALASUBRAMANIAN V
+                                </div>
+
+
+                                <div>
+                                    DOMAIN
+                                </div>
+
+                                <div>
+                                    ELECTRONICS & COMMUNICATION
+                                </div>
+
+
+                                <div>
+                                    FOCUS
+                                </div>
+
+                                <div>
+                                    VLSI / EMBEDDED / ELECTRONICS
+                                </div>
+
+
+                                <div>
+                                    EDUCATION
+                                </div>
+
+                                <div>
+                                    B.E. ECE
+                                </div>
+
+
+                                <div>
+                                    STATUS
+                                </div>
+
+                                <div>
+                                    STUDENT / BUILDER
+                                </div>
+
+                            </div>
+
+                        </section>
+
+
+
+                        <!-- Education -->
+
+                        <section class="paper-card">
+
+                            <div class="card-label">
+                                EDUCATION
+                            </div>
+
+
+                            <div class="spec">
+
+                                <div>
+                                    2024–2028
+                                </div>
+
+                                <div>
+                                    SRI SAIRAM ENGINEERING COLLEGE
+                                    <br>
+                                    B.E. ELECTRONICS &
+                                    COMMUNICATION ENGINEERING
+                                </div>
+
+
+                                <div>
+                                    2022–2024
+                                </div>
+
+                                <div>
+                                    MAHARISHI VIDYA MANDIR
+                                    <br>
+                                    CLASS 12 / CBSE
+                                </div>
+
+
+                                <div>
+                                    2020–2022
+                                </div>
+
+                                <div>
+                                    MAHARISHI VIDYA MANDIR
+                                    <br>
+                                    CLASS 10 / CBSE
+                                </div>
+
+                            </div>
+
+                        </section>
+
+
+
+                        <!-- Languages -->
+
+                        <section class="paper-card">
+
+                            <div class="card-label">
+                                LANGUAGES
+                            </div>
+
+
+                            <div class="spec">
+
+                                <div>
+                                    ENGLISH
+                                </div>
+
+                                <div>
+                                    FLUENT
+                                </div>
+
+
+                                <div>
+                                    TAMIL
+                                </div>
+
+                                <div>
+                                    FLUENT
+                                </div>
+
+
+                                <div>
+                                    HINDI
+                                </div>
+
+                                <div>
+                                    INTERMEDIATE
+                                </div>
+
+
+                                <div>
+                                    JAPANESE
+                                </div>
+
+                                <div>
+                                    BASICS
+                                </div>
+
+                            </div>
+
+                        </section>
+
+
+                    </div>
+
+
+                </article>
+
+
+
+                <!-- =================================================
+                     PROJECTS
+                     ================================================= -->
+
+                <article
+                    class="page"
+                    id="projects"
+                >
+
+
+                    <header class="page-top">
+
+                        <div>
+
+                            <div class="kicker">
+                                DOCUMENT 03 / BUILD RECORDS
+                            </div>
+
+                            <h2 class="page-title">
+                                Projects
+                            </h2>
+
+                        </div>
+
+
+                        <div class="page-code">
+                            ENGINEERING_LOG
+                        </div>
+
+                    </header>
+
+
+
+                    <div class="project-grid">
+
+
+                        <!-- Project 1 -->
+
+                        <article class="project-card">
+
+                            <div class="project-no">
+                                PROJECT / 001
+                            </div>
+
+
+                            <h3>
+                                Velocity Control Beacons
+                            </h3>
+
+
+                            <p>
+
+                                A developing project concept
+                                for reducing the speed of
+                                electric vehicles in areas where
+                                speed restriction is necessary.
+
+                            </p>
+
+
+                            <div class="tags">
+
+                                <span class="tag">
+                                    ECE
+                                </span>
+
+                                <span class="tag">
+                                    CONTROL
+                                </span>
+
+                                <span class="tag">
+                                    VEHICLE SYSTEMS
+                                </span>
+
+                            </div>
+
+                        </article>
+
+
+
+                        <!-- Project 2 -->
+
+                        <article class="project-card">
+
+                            <div class="project-no">
+                                PROJECT / 002
+                            </div>
+
+
+                            <h3>
+                                Thazhal
+                            </h3>
+
+
+                            <p>
+
+                                A student-focused technical
+                                learning initiative built around
+                                domain-based expert sessions and
+                                shared academic resources.
+
+                            </p>
+
+
+                            <div class="tags">
+
+                                <span class="tag">
+                                    LEADERSHIP
+                                </span>
+
+                                <span class="tag">
+                                    TECHNICAL COMMUNITY
+                                </span>
+
+                                <span class="tag">
+                                    LEARNING
+                                </span>
+
+                            </div>
+
+                        </article>
+
+
+                    </div>
+
+
+
+                    <p
+                        class="annotation"
+                        style="margin-top:35px"
+                    >
+                        more build records will be added as they become real.
+                    </p>
+
+
+                </article>
+
+
+
+                <!-- =================================================
+                     SKILLS
+                     ================================================= -->
+
+                <article
+                    class="page"
+                    id="skills"
+                >
+
+
+                    <header class="page-top">
+
+                        <div>
+
+                            <div class="kicker">
+                                DOCUMENT 04 / TECHNICAL INVENTORY
+                            </div>
+
+                            <h2 class="page-title">
+                                Skills
+                            </h2>
+
+                        </div>
+
+
+                        <div class="page-code">
+                            CAPABILITY_MAP
+                        </div>
+
+                    </header>
+
+
+
+                    <div class="skill-grid">
+
+
+                        <!-- Programming -->
+
+                        <section class="skill">
+
+                            <h3>
+                                PROGRAMMING
+                            </h3>
+
+                            <ul>
+
+                                <li>
+                                    Python
+                                </li>
+
+                                <li>
+                                    C
+                                </li>
+
+                                <li>
+                                    C++
+                                </li>
+
+                                <li>
+                                    GW-BASIC
+                                </li>
+
+                                <li>
+                                    HTML
+                                </li>
+
+                            </ul>
+
+                        </section>
+
+
+
+                        <!-- Data -->
+
+                        <section class="skill">
+
+                            <h3>
+                                DATA / TOOLS
+                            </h3>
+
+                            <ul>
+
+                                <li>
+                                    SQL
+                                </li>
+
+                                <li>
+                                    Excel
+                                </li>
+
+                                <li>
+                                    Power BI
+                                </li>
+
+                                <li>
+                                    MATLAB
+                                </li>
+
+                            </ul>
+
+                        </section>
+
+
+
+                        <!-- Core ECE -->
+
+                        <section class="skill">
+
+                            <h3>
+                                CORE ECE
+                            </h3>
+
+                            <ul>
+
+                                <li>
+                                    Circuit Analysis
+                                </li>
+
+                                <li>
+                                    Analog Circuits
+                                </li>
+
+                                <li>
+                                    Digital Circuits
+                                </li>
+
+                                <li>
+                                    Microcontrollers
+                                </li>
+
+                                <li>
+                                    Microprocessors
+                                </li>
+
+                            </ul>
+
+                        </section>
+
+
+
+                        <!-- Professional -->
+
+                        <section class="skill">
+
+                            <h3>
+                                PROFESSIONAL
+                            </h3>
+
+                            <ul>
+
+                                <li>
+                                    Teamwork
+                                </li>
+
+                                <li>
+                                    Communication
+                                </li>
+
+                                <li>
+                                    Leadership
+                                </li>
+
+                                <li>
+                                    Adaptability
+                                </li>
+
+                                <li>
+                                    Pressure Handling
+                                </li>
+
+                            </ul>
+
+                        </section>
+
+
+
+                        <!-- Technical interests -->
+
+                        <section class="skill">
+
+                            <h3>
+                                TECHNICAL INTEREST
+                            </h3>
+
+                            <ul>
+
+                                <li>
+                                    VLSI
+                                </li>
+
+                                <li>
+                                    Embedded Systems
+                                </li>
+
+                                <li>
+                                    Electronics
+                                </li>
+
+                                <li>
+                                    Engineering Systems
+                                </li>
+
+                            </ul>
+
+                        </section>
+
+
+
+                        <!-- Activities -->
+
+                        <section class="skill">
+
+                            <h3>
+                                ACTIVITIES
+                            </h3>
+
+                            <ul>
+
+                                <li>
+                                    IEEE Events
+                                </li>
+
+                                <li>
+                                    VLSI Workshops
+                                </li>
+
+                                <li>
+                                    SDG Scout Activities
+                                </li>
+
+                                <li>
+                                    Technical Community Building
+                                </li>
+
+                            </ul>
+
+                        </section>
+
+
+                    </div>
+
+
+                </article>
+
+
+
+                <!-- =================================================
+                     THAZHAL
+                     ================================================= -->
+
+                <article
+                    class="page"
+                    id="thazhal"
+                >
+
+
+                    <header class="page-top">
+
+                        <div>
+
+                            <div class="kicker">
+                                DOCUMENT 05 / INDEPENDENT INITIATIVE
+                            </div>
+
+                            <h2 class="page-title">
+                                Thazhal
+                            </h2>
+
+                        </div>
+
+
+                        <div class="page-code">
+                            COMMUNITY_DOSSIER
+                        </div>
+
+                    </header>
+
+
+
+                    <div class="thazhal-layout">
+
+
+                        <!-- Cover -->
+
+                        <section class="thazhal-cover">
+
+                            <strong>
+                                T
+                            </strong>
+
+                        </section>
+
+
+
+                        <!-- Description -->
+
+                        <section class="thazhal-copy">
+
+
+                            <div class="kicker">
+                                STUDENT-LED TECHNICAL INITIATIVE
+                            </div>
+
+
+                            <h3>
+                                Thazhal
+                            </h3>
+
+
+                            <p>
+
+                                A study-buddy style organisation
+                                initiated to help students improve
+                                technical proficiency through
+                                domain-based expert sessions.
+
+                            </p>
+
+
+                            <p>
+
+                                It also developed a notes-hive
+                                model for sharing academic
+                                resources with students.
+
+                            </p>
+
+
+
+                            <div class="fact-grid">
+
+
+                                <div class="fact">
+
+                                    TYPE
+
+                                    <b>
+                                        NON-PROFIT STUDENT
+                                        INITIATIVE
+                                    </b>
+
+                                </div>
+
+
+                                <div class="fact">
+
+                                    FOCUS
+
+                                    <b>
+                                        TECHNICAL KNOWLEDGE
+                                    </b>
+
+                                </div>
+
+
+                                <div class="fact">
+
+                                    MODEL
+
+                                    <b>
+                                        EXPERT SESSIONS
+                                    </b>
+
+                                </div>
+
+
+                                <div class="fact">
+
+                                    RESOURCE
+
+                                    <b>
+                                        NOTES HIVE
+                                    </b>
+
+                                </div>
+
+
+                            </div>
+
+
+                        </section>
+
+
+                    </div>
+
+
+                </article>
+
+
+
+                <!-- =================================================
+                     CONTACT
+                     ================================================= -->
+
+                <article
+                    class="page"
+                    id="contact"
+                >
+
+
+                    <header class="page-top">
+
+                        <div>
+
+                            <div class="kicker">
+                                DOCUMENT 06 / COMMUNICATION
+                            </div>
+
+                            <h2 class="page-title">
+                                Contact
+                            </h2>
+
+                        </div>
+
+
+                        <div class="page-code">
+                            OPEN_CHANNEL
+                        </div>
+
+                    </header>
+
+
+
+                    <div class="contact-layout">
+
+
+                        <!-- Contact channels -->
+
+                        <section class="contact-card">
+
+
+                            <div class="kicker">
+                                DIRECT CHANNELS
+                            </div>
+
+
+                            <h3>
+                                Let's connect.
+                            </h3>
+
+
+
+                            <a
+                                class="contact-link"
+                                href="mailto:vgopalasubramanian@gmail.com"
+                            >
+
+                                <span>
+                                    MAIL
+                                </span>
+
+                                vgopalasubramanian@gmail.com
+
+                            </a>
+
+
+
+                            <a
+                                class="contact-link"
+                                href="https://www.linkedin.com/in/gopalasubramanian-v-038804328/"
+                                target="_blank"
+                                rel="noopener"
+                            >
+
+                                <span>
+                                    LINKEDIN
+                                </span>
+
+                                GOPALASUBRAMANIAN V
+
+                            </a>
+
+
+
+                            <a
+                                class="contact-link"
+                                href="https://github.com/veegeeyes1429"
+                                target="_blank"
+                                rel="noopener"
+                            >
+
+                                <span>
+                                    GITHUB
+                                </span>
+
+                                veegeeyes1429
+
+                            </a>
+
+
+
+                            <div class="contact-link">
+
+                                <span>
+                                    LOCATION
+                                </span>
+
+                                CHENNAI, INDIA
+
+                            </div>
+
+
+                        </section>
+
+
+
+                        <!-- Signature -->
+
+                        <section class="signature-card">
+
+
+                            <div class="kicker">
+                                OPEN FOR ENGINEERING
+                            </div>
+
+
+                            <p
+                                style="
+                                    max-width:400px;
+                                    color:#5c6055;
+                                    line-height:1.8;
+                                    font-size:14px;
+                                "
+                            >
+
+                                Electronics, systems, ideas
+                                and technical work worth
+                                building.
+
+                            </p>
+
+
+                            <div class="signature-line">
+
+                                Gopalasubramanian V
+
+                            </div>
+
+
+                        </section>
+
+
+                    </div>
+
+
+                </article>
+
+
+            </div>
 
         </div>
 
-    </div>
-
-
-    <div class="instrument-data">
-
-        <span>
-            MODE
-            <b>ENGINEER</b>
-        </span>
-
-        <span>
-            FOCUS
-            <b>BUILD</b>
-        </span>
-
-        <span>
-            REV
-            <b>01</b>
-        </span>
-
-    </div>
-
-</div>
-
-</div>
-
-</div>
-
-
-
-<!-- =====================================================
-     ABOUT
-     ===================================================== -->
-
-<div
-    class="section"
-    id="about"
->
-
-<div class="section-head">
-
-    <div>
-
-        <div class="eyebrow">
-            Document 02 / Identity
-        </div>
-
-        <h2>
-            ABOUT
-        </h2>
-
-    </div>
-
-    <div class="section-index">
-        PROFILE_RECORD
-    </div>
-
-</div>
-
-
-
-<div class="about-grid">
-
-
-<article class="document">
-
-    <h3>
-        ENGINEERING PROFILE
-    </h3>
-
-    <p>
-
-        Electronics and Communication Engineering
-        student interested in VLSI, embedded systems
-        and electronics.
-
-    </p>
-
-    <p>
-
-        The approach is deliberately broad:
-        understand the theory, understand the mechanism,
-        then build something with it.
-
-    </p>
-
-</article>
-
-
-
-<article class="document">
-
-    <h3>
-        IDENTIFICATION DATA
-    </h3>
-
-    <div class="spec">
-
-        <div>NAME</div>
-        <div>GOPALASUBRAMANIAN V</div>
-
-        <div>DOMAIN</div>
-        <div>ELECTRONICS & COMMUNICATION</div>
-
-        <div>FOCUS</div>
-        <div>VLSI / EMBEDDED / ELECTRONICS</div>
-
-        <div>EDUCATION</div>
-        <div>B.E. ECE</div>
-
-        <div>STATUS</div>
-        <div>STUDENT / BUILDER</div>
-
-    </div>
-
-</article>
-
-
-
-<article class="document">
-
-    <h3>
-        EDUCATION
-    </h3>
-
-    <div class="spec">
-
-        <div>2024–2028</div>
-
-        <div>
-            SRI SAIRAM ENGINEERING COLLEGE<br>
-            B.E. ELECTRONICS & COMMUNICATION ENGINEERING
-        </div>
-
-
-        <div>2022–2024</div>
-
-        <div>
-            MAHARISHI VIDYA MANDIR<br>
-            CLASS 12 / CBSE
-        </div>
-
-
-        <div>2020–2022</div>
-
-        <div>
-            MAHARISHI VIDYA MANDIR<br>
-            CLASS 10 / CBSE
-        </div>
-
-    </div>
-
-</article>
-
-
-
-<article class="document">
-
-    <h3>
-        LANGUAGES
-    </h3>
-
-    <div class="spec">
-
-        <div>ENGLISH</div>
-        <div>FLUENT</div>
-
-        <div>TAMIL</div>
-        <div>FLUENT</div>
-
-        <div>HINDI</div>
-        <div>INTERMEDIATE</div>
-
-        <div>JAPANESE</div>
-        <div>BASICS</div>
-
-    </div>
-
-</article>
-
-
-</div>
-
-</div>
-
-
-
-<!-- =====================================================
-     PROJECTS
-     ===================================================== -->
-
-<div
-    class="section"
-    id="projects"
->
-
-<div class="section-head">
-
-    <div>
-
-        <div class="eyebrow">
-            Document 03 / Build Records
-        </div>
-
-        <h2>
-            PROJECTS
-        </h2>
-
-    </div>
-
-    <div class="section-index">
-        ENGINEERING_LOG
-    </div>
-
-</div>
-
-
-
-<div class="projects">
-
-
-<article class="project">
-
-    <div class="project-number">
-        PROJECT / 001
-    </div>
-
-    <h3>
-        Velocity Control Beacons
-    </h3>
-
-    <p>
-
-        A developing concept for reducing the speed
-        of electric vehicles in areas where speed
-        restriction is necessary.
-
-    </p>
-
-    <div class="project-tags">
-
-        <span class="project-tag">
-            ECE
-        </span>
-
-        <span class="project-tag">
-            CONTROL
-        </span>
-
-        <span class="project-tag">
-            VEHICLE SYSTEMS
-        </span>
-
-    </div>
-
-</article>
-
-
-
-<article class="project">
-
-    <div class="project-number">
-        PROJECT / 002
-    </div>
-
-    <h3>
-        Thazhal
-    </h3>
-
-    <p>
-
-        A student-focused technical learning initiative
-        built around domain-based expert sessions and
-        shared academic resources.
-
-    </p>
-
-    <div class="project-tags">
-
-        <span class="project-tag">
-            LEADERSHIP
-        </span>
-
-        <span class="project-tag">
-            TECHNICAL COMMUNITY
-        </span>
-
-        <span class="project-tag">
-            LEARNING
-        </span>
-
-    </div>
-
-</article>
-
-
-</div>
-
-</div>
-
-
-
-<!-- =====================================================
-     SKILLS
-     ===================================================== -->
-
-<div
-    class="section"
-    id="skills"
->
-
-<div class="section-head">
-
-    <div>
-
-        <div class="eyebrow">
-            Document 04 / Technical Inventory
-        </div>
-
-        <h2>
-            SKILLS
-        </h2>
-
-    </div>
-
-    <div class="section-index">
-        CAPABILITY_MAP
-    </div>
-
-</div>
-
-
-
-<div class="skills-grid">
-
-
-<article class="skill-box">
-
-    <h3>
-        PROGRAMMING
-    </h3>
-
-    <ul>
-        <li>Python</li>
-        <li>C</li>
-        <li>C++</li>
-        <li>GW-BASIC</li>
-        <li>HTML</li>
-    </ul>
-
-</article>
-
-
-
-<article class="skill-box">
-
-    <h3>
-        DATA / TOOLS
-    </h3>
-
-    <ul>
-        <li>SQL</li>
-        <li>Excel</li>
-        <li>Power BI</li>
-        <li>MATLAB</li>
-    </ul>
-
-</article>
-
-
-
-<article class="skill-box">
-
-    <h3>
-        CORE ECE
-    </h3>
-
-    <ul>
-        <li>Circuit Analysis</li>
-        <li>Analog Circuits</li>
-        <li>Digital Circuits</li>
-        <li>Microcontrollers</li>
-        <li>Microprocessors</li>
-    </ul>
-
-</article>
-
-
-
-<article class="skill-box">
-
-    <h3>
-        PROFESSIONAL
-    </h3>
-
-    <ul>
-        <li>Teamwork</li>
-        <li>Communication</li>
-        <li>Leadership</li>
-        <li>Adaptability</li>
-        <li>Pressure Handling</li>
-    </ul>
-
-</article>
-
-
-
-<article class="skill-box">
-
-    <h3>
-        TECHNICAL INTEREST
-    </h3>
-
-    <ul>
-        <li>VLSI</li>
-        <li>Embedded Systems</li>
-        <li>Electronics</li>
-        <li>Engineering Systems</li>
-    </ul>
-
-</article>
-
-
-
-<article class="skill-box">
-
-    <h3>
-        ACTIVITIES
-    </h3>
-
-    <ul>
-        <li>IEEE Events</li>
-        <li>VLSI Workshops</li>
-        <li>SDG Scout Activities</li>
-        <li>Technical Community Building</li>
-    </ul>
-
-</article>
-
-
-</div>
-
-</div>
-
-
-
-<!-- =====================================================
-     THAZHAL
-     ===================================================== -->
-
-<div
-    class="section"
-    id="thazhal"
->
-
-<div class="section-head">
-
-    <div>
-
-        <div class="eyebrow">
-            Document 05 / Independent Initiative
-        </div>
-
-        <h2>
-            THAZHAL
-        </h2>
-
-    </div>
-
-    <div class="section-index">
-        COMMUNITY_DOSSIER
-    </div>
-
-</div>
-
-
-
-<div class="thazhal">
-
-
-<div class="thazhal-mark">
-
-    <small>
-        STUDENT TECHNICAL KNOWLEDGE
-    </small>
-
-    <strong>
-        T
-    </strong>
-
-</div>
-
-
-
-<div class="thazhal-copy">
-
-    <div class="eyebrow">
-        Student-led technical initiative
-    </div>
-
-    <h3>
-        THAZHAL
-    </h3>
-
-    <p>
-
-        A study-buddy style organisation initiated
-        to help students improve technical proficiency
-        through domain-based expert sessions.
-
-    </p>
-
-    <p>
-
-        It also developed a notes-hive model for
-        sharing academic resources with students.
-
-    </p>
-
-
-    <div class="thazhal-facts">
-
-        <div>
-            TYPE
-            <b>
-                NON-PROFIT STUDENT INITIATIVE
-            </b>
-        </div>
-
-        <div>
-            FOCUS
-            <b>
-                TECHNICAL KNOWLEDGE
-            </b>
-        </div>
-
-        <div>
-            MODEL
-            <b>
-                EXPERT SESSIONS
-            </b>
-        </div>
-
-        <div>
-            RESOURCE
-            <b>
-                NOTES HIVE
-            </b>
-        </div>
-
-    </div>
-
-</div>
-
-
-</div>
-
-</div>
-
-
-
-<!-- =====================================================
-     CONTACT
-     ===================================================== -->
-
-<div
-    class="section"
-    id="contact"
->
-
-<div class="section-head">
-
-    <div>
-
-        <div class="eyebrow">
-            Document 06 / Communication
-        </div>
-
-        <h2>
-            CONTACT
-        </h2>
-
-    </div>
-
-    <div class="section-index">
-        OPEN_CHANNEL
-    </div>
-
-</div>
-
-
-
-<div class="contact">
-
-
-<article class="contact-card">
-
-    <div class="eyebrow">
-        DIRECT CHANNELS
-    </div>
-
-    <h3>
-        Let's connect.
-    </h3>
-
-
-    <a
-        class="contact-link"
-        href="mailto:vgopalasubramanian@gmail.com"
-    >
-        <span>MAIL</span>
-        vgopalasubramanian@gmail.com
-    </a>
-
-
-    <a
-        class="contact-link"
-        href="https://www.linkedin.com/in/gopalasubramanian-v-038804328/"
-        target="_blank"
-        rel="noopener"
-    >
-        <span>LINKEDIN</span>
-        GOPALASUBRAMANIAN V
-    </a>
-
-
-    <a
-        class="contact-link"
-        href="https://github.com/veegeeyes1429"
-        target="_blank"
-        rel="noopener"
-    >
-        <span>GITHUB</span>
-        veegeeyes1429
-    </a>
-
-
-    <div class="contact-link">
-
-        <span>LOCATION</span>
-        CHENNAI, INDIA
-
-    </div>
-
-</article>
-
-
-
-<!-- small cinema reference -->
-
-<article class="cinema">
-
-    <h3>
-        FRAME / 24
-    </h3>
-
-    <div
-        class="frame"
-        id="frameCounter"
-    >
-        001
-    </div>
-
-    <p>
-
-        Every system has a sequence.
-        Every sequence has a frame.
-        This one happens to be the frame
-        where the folder opens.
-
-    </p>
-
-    <p class="frame-note">
-
-        CINEMATIC REFERENCE /
-        KEEP THE DETAIL, CUT THE NOISE.
-
-    </p>
-
-</article>
-
-
-</div>
-
-</div>
-
-
-
-</section>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-
-
-<!-- =====================================================
-     FOOTER
-     ===================================================== -->
-
-<footer class="footer">
-
-    <span>
-        VGS / ENGINEERING DOSSIER / SINGLE-FILE BUILD
-    </span>
-
-    <span>
-        DESIGNED TO BE READ, NOT DECORATED
-    </span>
-
-</footer>
-
+    </section>
 
 </main>
 
@@ -2541,42 +3327,61 @@ body::before{
 <script>
 
 /* =========================================================
-   FOLDER NAVIGATION
+   TAB NAVIGATION
    ========================================================= */
 
-const navItems =
-    document.querySelectorAll(".nav-item");
+const tabs =
+    document.querySelectorAll(".tab");
 
-const sections =
-    document.querySelectorAll(".section");
+const pages =
+    document.querySelectorAll(".page");
 
 
-navItems.forEach(button => {
+tabs.forEach(tab => {
 
-    button.addEventListener("click", () => {
+    tab.addEventListener("click", () => {
 
         const target =
-            button.dataset.section;
+            tab.dataset.page;
 
 
-        navItems.forEach(item => {
+        /* Remove active tab */
+
+        tabs.forEach(item => {
 
             item.classList.remove("active");
 
         });
 
 
-        button.classList.add("active");
+        /* Hide all pages */
 
+        pages.forEach(page => {
 
-        sections.forEach(section => {
-
-            section.classList.toggle(
-                "active",
-                section.id === target
-            );
+            page.classList.remove("active");
 
         });
+
+
+        /* Activate clicked tab */
+
+        tab.classList.add("active");
+
+
+        /* Activate corresponding page */
+
+        const selected =
+            document.getElementById(target);
+
+        selected.classList.add("active");
+
+
+        /*
+            Whenever a folder section opens,
+            return the paper to the top.
+        */
+
+        selected.scrollTop = 0;
 
     });
 
@@ -2585,43 +3390,61 @@ navItems.forEach(button => {
 
 
 /* =========================================================
-   SUBTLE PHYSICAL FOLDER MOVEMENT
+   PHYSICAL FOLDER PARALLAX
    ========================================================= */
 
 const folder =
-    document.getElementById("folder");
+    document.querySelector(".folder");
 
 
 window.addEventListener(
     "pointermove",
     event => {
 
-        if(window.innerWidth <= 900){
+        /*
+            Disable the effect on smaller screens.
+        */
+
+        if (window.innerWidth < 1000) {
             return;
         }
 
 
+        /*
+            Convert pointer coordinates
+            into a range approximately -0.5 to +0.5.
+        */
+
         const x =
             event.clientX /
             window.innerWidth -
-            .5;
+            0.5;
 
 
         const y =
             event.clientY /
             window.innerHeight -
-            .5;
+            0.5;
 
+
+        /*
+            Very small physical movement.
+            The folder should feel like an object,
+            not like a gaming website having a seizure.
+        */
 
         folder.style.transform =
             `
-            rotateY(${x * 1.5}deg)
-            rotateX(${y * -1.1}deg)
+                rotateY(${x * 1.1}deg)
+                rotateX(${y * -0.8}deg)
             `;
 
     }
 );
 
+
+
+/* Reset folder */
 
 window.addEventListener(
     "pointerleave",
@@ -2631,31 +3454,6 @@ window.addEventListener(
 
     }
 );
-
-
-
-/* =========================================================
-   CINEMATIC FRAME COUNTER
-   ========================================================= */
-
-const frameCounter =
-    document.getElementById("frameCounter");
-
-let frame = 1;
-
-
-setInterval(() => {
-
-    frame++;
-
-    if(frame > 240){
-        frame = 1;
-    }
-
-    frameCounter.textContent =
-        String(frame).padStart(3,"0");
-
-}, 1000 / 24);
 
 
 
@@ -2673,16 +3471,17 @@ window.addEventListener(
                 document
                     .getElementById("boot")
                     .classList
-                    .add("hidden");
+                    .add("hide");
 
             },
-            1850
+            1450
         );
 
     }
 );
 
 </script>
+
 
 </body>
 </html>
