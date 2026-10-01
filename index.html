@@ -1,0 +1,2688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Gopalasubramanian V | Engineering Dossier</title>
+
+<style>
+/* =========================================================
+   VGS ENGINEERING DOSSIER
+   SINGLE FILE / NO EXTERNAL DEPENDENCIES
+   ========================================================= */
+
+:root{
+    --desk:#20231f;
+    --desk-dark:#141713;
+
+    --folder:#b79d65;
+    --folder-light:#cbb67f;
+    --folder-dark:#8c733f;
+    --folder-edge:#705a31;
+
+    --paper:#e9e1cb;
+    --paper-light:#f3eddb;
+    --paper-shadow:#c9bea3;
+
+    --ink:#20231d;
+    --ink-soft:#555449;
+    --ink-muted:#77725f;
+
+    --green:#43563d;
+    --green-dark:#29392b;
+    --green-light:#64775a;
+
+    --line:rgba(53,61,40,.28);
+    --line-dark:rgba(45,51,35,.55);
+
+    --shadow:0 35px 80px rgba(0,0,0,.50);
+
+    --mono:"Courier New",Courier,monospace;
+    --sans:Arial,Helvetica,sans-serif;
+}
+
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
+*{
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    margin:0;
+    min-height:100vh;
+    overflow-x:hidden;
+
+    color:var(--ink);
+
+    font-family:var(--sans);
+
+    background:
+        radial-gradient(
+            circle at 50% -10%,
+            rgba(255,255,255,.07),
+            transparent 32rem
+        ),
+        linear-gradient(
+            145deg,
+            var(--desk),
+            var(--desk-dark)
+        );
+}
+
+
+/* subtle desk texture */
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+
+    pointer-events:none;
+
+    opacity:.12;
+
+    background-image:
+        linear-gradient(
+            rgba(255,255,255,.025) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.018) 1px,
+            transparent 1px
+        );
+
+    background-size:50px 50px;
+}
+
+
+/* =========================================================
+   BOOT SCREEN
+   ========================================================= */
+
+.boot{
+    position:fixed;
+    inset:0;
+    z-index:999;
+
+    display:grid;
+    place-items:center;
+
+    background:#242720;
+
+    transition:
+        opacity .7s ease,
+        visibility .7s ease;
+}
+
+.boot.hidden{
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+}
+
+.boot-box{
+    width:min(620px,88vw);
+
+    color:#ddd4b9;
+
+    font:
+        12px var(--mono);
+}
+
+.boot-line{
+    margin:7px 0;
+
+    opacity:0;
+
+    animation:
+        bootLine .25s forwards;
+}
+
+.boot-line:nth-child(1){animation-delay:.05s}
+.boot-line:nth-child(2){animation-delay:.18s}
+.boot-line:nth-child(3){animation-delay:.31s}
+.boot-line:nth-child(4){animation-delay:.44s}
+.boot-line:nth-child(5){animation-delay:.57s}
+.boot-line:nth-child(6){animation-delay:.70s}
+
+.boot-bar{
+    height:2px;
+    margin-top:20px;
+
+    overflow:hidden;
+
+    background:#3e4238;
+}
+
+.boot-bar span{
+    display:block;
+
+    width:0;
+    height:100%;
+
+    background:#c3ae73;
+
+    animation:
+        load 1.4s .2s forwards;
+}
+
+@keyframes bootLine{
+    to{
+        opacity:1;
+    }
+}
+
+@keyframes load{
+    to{
+        width:100%;
+    }
+}
+
+
+/* =========================================================
+   PAGE FRAME
+   ========================================================= */
+
+.shell{
+    width:min(1420px,94vw);
+
+    margin:auto;
+    padding:32px 0 70px;
+}
+
+
+/* =========================================================
+   TOP INFORMATION STRIP
+   ========================================================= */
+
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:0 4px 17px;
+
+    border-bottom:
+        1px solid
+        rgba(230,220,190,.20);
+
+    color:#aaa693;
+
+    font:
+        10px var(--mono);
+
+    letter-spacing:.16em;
+}
+
+.topbar strong{
+    color:#d2bf85;
+    font-weight:400;
+}
+
+.status{
+    display:flex;
+    gap:18px;
+}
+
+.dot{
+    display:inline-block;
+
+    width:6px;
+    height:6px;
+
+    margin-right:7px;
+
+    border-radius:50%;
+
+    background:#b8a56e;
+}
+
+
+/* =========================================================
+   FOLDER
+   ========================================================= */
+
+.folder-stage{
+    padding-top:34px;
+
+    perspective:1800px;
+}
+
+.folder{
+    position:relative;
+
+    transform-style:preserve-3d;
+
+    transition:
+        transform .18s ease-out;
+}
+
+
+/* physical folder tab */
+
+.folder-tab{
+    position:relative;
+
+    width:235px;
+    height:43px;
+
+    margin-left:7%;
+
+    border:
+        1px solid
+        var(--folder-edge);
+
+    border-bottom:0;
+
+    border-radius:
+        10px 10px 0 0;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255,255,255,.13),
+            transparent 40%
+        ),
+        linear-gradient(
+            180deg,
+            var(--folder-light),
+            var(--folder)
+        );
+
+    box-shadow:
+        0 -8px 24px rgba(0,0,0,.18);
+}
+
+.folder-tab::after{
+    content:"ENGINEERING / VGS";
+
+    position:absolute;
+
+    left:18px;
+    top:14px;
+
+    color:#62573c;
+
+    font:
+        9px var(--mono);
+
+    letter-spacing:.17em;
+}
+
+
+/* main physical folder */
+
+.folder-body{
+    position:relative;
+
+    min-height:790px;
+
+    overflow:hidden;
+
+    border:
+        1px solid
+        var(--folder-edge);
+
+    border-radius:
+        0 11px 11px 11px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.10),
+            transparent 30%
+        ),
+        linear-gradient(
+            180deg,
+            var(--folder-light),
+            var(--folder) 58%,
+            #a68b54
+        );
+
+    box-shadow:
+        var(--shadow),
+        inset 0 0 80px rgba(65,48,20,.13);
+}
+
+.folder-body::before{
+    content:"";
+
+    position:absolute;
+    inset:0;
+
+    pointer-events:none;
+
+    border:
+        1px solid
+        rgba(70,53,25,.15);
+
+    border-radius:inherit;
+}
+
+
+/* =========================================================
+   FOLDER HEADER
+   ========================================================= */
+
+.folder-header{
+    height:70px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:0 25px;
+
+    border-bottom:
+        1px solid
+        rgba(50,56,39,.24);
+
+    background:
+        rgba(70,52,24,.10);
+}
+
+.folder-title{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.folder-icon{
+    position:relative;
+
+    width:29px;
+    height:22px;
+
+    border:
+        1px solid
+        var(--folder-edge);
+}
+
+.folder-icon::before{
+    content:"";
+
+    position:absolute;
+
+    width:11px;
+    height:4px;
+
+    left:2px;
+    top:-5px;
+
+    border:
+        1px solid
+        var(--folder-edge);
+
+    border-bottom:0;
+}
+
+.folder-title b{
+    color:var(--ink);
+
+    font:
+        12px var(--mono);
+
+    letter-spacing:.12em;
+}
+
+.folder-meta{
+    color:#665e4b;
+
+    font:
+        9px var(--mono);
+
+    letter-spacing:.13em;
+}
+
+
+/* =========================================================
+   FOLDER CONTENT STRUCTURE
+   ========================================================= */
+
+.contents{
+    display:grid;
+
+    grid-template-columns:250px 1fr;
+
+    min-height:720px;
+}
+
+
+/* =========================================================
+   LEFT FOLDER INDEX
+   ========================================================= */
+
+.sidebar{
+    position:relative;
+
+    padding:20px 15px;
+
+    border-right:
+        1px solid
+        var(--line);
+
+    background:
+        rgba(74,55,25,.075);
+}
+
+.sidebar-label{
+    padding:
+        0 11px 12px;
+
+    color:#696653;
+
+    font:
+        9px var(--mono);
+
+    letter-spacing:.18em;
+}
+
+.nav-item{
+    width:100%;
+
+    display:flex;
+    align-items:center;
+
+    gap:12px;
+
+    margin-bottom:4px;
+    padding:12px 11px;
+
+    cursor:pointer;
+
+    border:
+        1px solid
+        transparent;
+
+    background:transparent;
+
+    color:#5b5a4e;
+
+    text-align:left;
+
+    transition:.2s ease;
+}
+
+.nav-item:hover{
+    color:var(--ink);
+
+    background:
+        rgba(255,255,255,.15);
+
+    border-color:
+        var(--line);
+}
+
+.nav-item.active{
+    color:var(--green-dark);
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.22),
+            transparent
+        );
+
+    border-color:
+        var(--line-dark);
+}
+
+.nav-num{
+    width:20px;
+
+    color:#716c59;
+
+    font:
+        9px var(--mono);
+}
+
+.nav-name{
+    font:
+        11px var(--mono);
+
+    letter-spacing:.08em;
+}
+
+.nav-item.active .nav-num{
+    color:var(--green-dark);
+}
+
+.sidebar-footer{
+    position:absolute;
+
+    left:18px;
+    right:18px;
+    bottom:18px;
+
+    padding-top:12px;
+
+    border-top:
+        1px solid
+        var(--line);
+
+    color:#666454;
+
+    font:
+        8px/1.8 var(--mono);
+}
+
+
+/* =========================================================
+   PAPER INSIDE FOLDER
+   ========================================================= */
+
+.panel{
+    position:relative;
+
+    min-height:720px;
+
+    padding:30px;
+
+    overflow:hidden;
+
+    background:
+        linear-gradient(
+            rgba(255,255,255,.10),
+            rgba(255,255,255,0)
+        ),
+        repeating-linear-gradient(
+            0deg,
+            rgba(70,60,40,.018) 0 1px,
+            transparent 1px 4px
+        ),
+        var(--paper);
+
+    box-shadow:
+        inset 0 0 45px
+        rgba(65,48,25,.10);
+}
+
+
+/* =========================================================
+   SECTIONS
+   ========================================================= */
+
+.section{
+    display:none;
+
+    animation:
+        sectionIn .35s ease both;
+}
+
+.section.active{
+    display:block;
+}
+
+@keyframes sectionIn{
+    from{
+        opacity:0;
+        transform:translateY(8px);
+    }
+
+    to{
+        opacity:1;
+        transform:none;
+    }
+}
+
+.eyebrow{
+    color:var(--green-dark);
+
+    font:
+        9px var(--mono);
+
+    letter-spacing:.20em;
+
+    text-transform:uppercase;
+}
+
+.section-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+
+    gap:20px;
+
+    margin-bottom:30px;
+    padding-bottom:18px;
+
+    border-bottom:
+        1px solid
+        var(--line);
+}
+
+.section-head h2{
+    margin:7px 0 0;
+
+    font-size:
+        clamp(30px,4vw,58px);
+
+    letter-spacing:-.045em;
+}
+
+.section-index{
+    color:#716b58;
+
+    font:
+        9px var(--mono);
+}
+
+
+/* =========================================================
+   PROFILE
+   ========================================================= */
+
+.hero{
+    min-height:560px;
+
+    display:grid;
+
+    grid-template-columns:
+        1.25fr .75fr;
+
+    align-items:center;
+
+    gap:42px;
+}
+
+.hero h1{
+    max-width:850px;
+
+    margin:
+        18px 0 28px;
+
+    font-size:
+        clamp(48px,7vw,102px);
+
+    line-height:.88;
+
+    letter-spacing:-.07em;
+}
+
+.hero h1 span{
+    color:transparent;
+
+    -webkit-text-stroke:
+        1px rgba(50,57,40,.55);
+}
+
+.hero-copy{
+    max-width:650px;
+
+    color:var(--ink-soft);
+
+    font-size:15px;
+    line-height:1.75;
+}
+
+.hero-meta{
+    display:flex;
+    flex-wrap:wrap;
+
+    gap:8px;
+
+    margin-top:30px;
+}
+
+.chip{
+    padding:8px 10px;
+
+    border:
+        1px solid
+        var(--line);
+
+    color:#57594d;
+
+    background:
+        rgba(65,72,51,.045);
+
+    font:
+        9px var(--mono);
+}
+
+
+/* =========================================================
+   TECHNICAL INSERT
+   ========================================================= */
+
+.instrument{
+    position:relative;
+
+    min-height:370px;
+
+    overflow:hidden;
+
+    border:
+        1px solid
+        rgba(57,64,44,.42);
+
+    background:
+        radial-gradient(
+            circle at 50% 45%,
+            rgba(74,92,55,.10),
+            transparent 40%
+        ),
+        #d8d0b6;
+
+    box-shadow:
+        inset 0 0 60px
+        rgba(70,60,35,.08);
+}
+
+.instrument-label{
+    position:absolute;
+
+    left:34px;
+    top:34px;
+
+    color:var(--green-dark);
+
+    font:
+        8px var(--mono);
+
+    letter-spacing:.15em;
+}
+
+.instrument-screen{
+    position:absolute;
+
+    inset:22px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border:
+        1px solid
+        var(--line);
+}
+
+.instrument-screen::before{
+    content:"";
+
+    position:absolute;
+
+    width:1px;
+    height:100%;
+
+    left:50%;
+
+    background:var(--line);
+}
+
+.instrument-screen::after{
+    content:"";
+
+    position:absolute;
+
+    width:100%;
+    height:1px;
+
+    top:50%;
+
+    background:var(--line);
+}
+
+.wave{
+    position:relative;
+
+    width:82%;
+    height:40%;
+}
+
+.wave svg{
+    width:100%;
+    height:100%;
+}
+
+.instrument-data{
+    position:absolute;
+
+    left:34px;
+    right:34px;
+    bottom:28px;
+
+    display:flex;
+    justify-content:space-between;
+
+    color:#706d5c;
+
+    font:
+        8px var(--mono);
+}
+
+.instrument-data b{
+    color:#41493b;
+    font-weight:400;
+}
+
+
+/* =========================================================
+   ABOUT
+   ========================================================= */
+
+.about-grid{
+    display:grid;
+
+    grid-template-columns:
+        1.1fr .9fr;
+
+    gap:16px;
+}
+
+.document{
+    min-height:220px;
+
+    padding:25px;
+
+    border:
+        1px solid
+        var(--line);
+
+    background:
+        rgba(255,255,255,.18);
+}
+
+.document h3{
+    margin-bottom:18px;
+
+    color:var(--green-dark);
+
+    font:
+        12px var(--mono);
+
+    letter-spacing:.10em;
+}
+
+.document p{
+    color:var(--ink-soft);
+
+    font-size:14px;
+    line-height:1.75;
+}
+
+.spec{
+    display:grid;
+
+    grid-template-columns:120px 1fr;
+
+    font:
+        10px var(--mono);
+}
+
+.spec div{
+    padding:10px 0;
+
+    border-bottom:
+        1px solid
+        rgba(60,65,45,.12);
+}
+
+.spec div:nth-child(odd){
+    color:#77705e;
+}
+
+.spec div:nth-child(even){
+    color:#30352d;
+}
+
+
+/* =========================================================
+   PROJECTS
+   ========================================================= */
+
+.projects{
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:15px;
+}
+
+.project{
+    position:relative;
+
+    min-height:300px;
+
+    padding:23px;
+
+    overflow:hidden;
+
+    border:
+        1px solid
+        var(--line);
+
+    background:
+        rgba(255,255,255,.13);
+
+    transition:.25s ease;
+}
+
+.project:hover{
+    transform:translateY(-4px);
+
+    border-color:
+        var(--line-dark);
+
+    box-shadow:
+        0 18px 45px
+        rgba(50,40,20,.18);
+}
+
+.project::after{
+    content:"";
+
+    position:absolute;
+
+    width:180px;
+    height:180px;
+
+    right:-80px;
+    bottom:-80px;
+
+    border:
+        1px solid
+        rgba(60,72,45,.20);
+
+    border-radius:50%;
+
+    box-shadow:
+        0 0 0 20px
+        rgba(60,72,45,.025),
+        0 0 0 40px
+        rgba(60,72,45,.018);
+}
+
+.project-number{
+    color:#77715f;
+
+    font:
+        9px var(--mono);
+}
+
+.project h3{
+    margin:
+        42px 0 12px;
+
+    font-size:27px;
+
+    letter-spacing:-.03em;
+}
+
+.project p{
+    color:#626052;
+
+    font-size:13px;
+    line-height:1.65;
+}
+
+.project-tags{
+    display:flex;
+    flex-wrap:wrap;
+
+    gap:6px;
+
+    margin-top:22px;
+}
+
+.project-tag{
+    padding:5px 7px;
+
+    color:#6c6858;
+
+    border:
+        1px solid
+        rgba(55,65,43,.16);
+
+    font:
+        8px var(--mono);
+}
+
+
+/* =========================================================
+   SKILLS
+   ========================================================= */
+
+.skills-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:12px;
+}
+
+.skill-box{
+    min-height:180px;
+
+    padding:20px;
+
+    border:
+        1px solid
+        var(--line);
+
+    background:
+        rgba(255,255,255,.13);
+}
+
+.skill-box h3{
+    margin-bottom:22px;
+
+    color:var(--green-dark);
+
+    font:
+        10px var(--mono);
+
+    letter-spacing:.15em;
+}
+
+.skill-box ul{
+    margin:0;
+    padding:0;
+
+    list-style:none;
+}
+
+.skill-box li{
+    padding:8px 0;
+
+    border-bottom:
+        1px solid
+        rgba(60,65,45,.10);
+
+    color:#57584e;
+
+    font:
+        12px var(--mono);
+}
+
+.skill-box li::before{
+    content:"//";
+
+    margin-right:9px;
+
+    color:#667259;
+}
+
+
+/* =========================================================
+   THAZHAL
+   ========================================================= */
+
+.thazhal{
+    display:grid;
+
+    grid-template-columns:
+        .7fr 1.3fr;
+
+    gap:16px;
+}
+
+.thazhal-mark{
+    position:relative;
+
+    min-height:430px;
+
+    display:grid;
+    place-items:center;
+
+    border:
+        1px solid
+        var(--line-dark);
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(70,90,55,.10),
+            transparent 38%
+        ),
+        #d3c7a7;
+}
+
+.thazhal-mark small{
+    position:absolute;
+
+    top:18px;
+    left:18px;
+
+    color:#706b59;
+
+    font:
+        8px var(--mono);
+}
+
+.thazhal-mark strong{
+    color:transparent;
+
+    font-size:80px;
+
+    letter-spacing:-.08em;
+
+    -webkit-text-stroke:
+        1px
+        var(--green-dark);
+}
+
+.thazhal-copy{
+    padding:28px;
+
+    border:
+        1px solid
+        var(--line);
+
+    background:
+        rgba(255,255,255,.15);
+}
+
+.thazhal-copy h3{
+    margin:
+        8px 0 20px;
+
+    font-size:44px;
+
+    letter-spacing:-.05em;
+}
+
+.thazhal-copy p{
+    color:#59594e;
+
+    line-height:1.8;
+}
+
+.thazhal-facts{
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:1px;
+
+    margin-top:25px;
+
+    background:
+        var(--line);
+}
+
+.thazhal-facts div{
+    padding:16px;
+
+    color:#716b58;
+
+    background:
+        var(--paper-light);
+
+    font:
+        9px var(--mono);
+}
+
+.thazhal-facts b{
+    display:block;
+
+    margin-top:7px;
+
+    color:#363a31;
+
+    font-weight:400;
+}
+
+
+/* =========================================================
+   CONTACT
+   ========================================================= */
+
+.contact{
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:16px;
+}
+
+.contact-card,
+.cinema{
+    min-height:290px;
+
+    padding:25px;
+
+    border:
+        1px solid
+        var(--line);
+
+    background:
+        rgba(255,255,255,.13);
+}
+
+.contact-card h3{
+    margin:
+        10px 0 24px;
+
+    font-size:30px;
+
+    letter-spacing:-.04em;
+}
+
+.contact-link{
+    display:block;
+
+    padding:13px 0;
+
+    border-bottom:
+        1px solid
+        rgba(55,60,42,.11);
+
+    color:#56574d;
+
+    font:
+        11px var(--mono);
+}
+
+.contact-link:hover{
+    color:var(--green-dark);
+}
+
+.contact-link span{
+    display:inline-block;
+
+    width:80px;
+
+    color:#77705d;
+}
+
+
+/* =========================================================
+   CINEMA REFERENCE
+   ========================================================= */
+
+.cinema{
+    position:relative;
+
+    overflow:hidden;
+}
+
+.cinema::before{
+    content:"";
+
+    position:absolute;
+
+    top:0;
+    left:0;
+    right:0;
+
+    height:4px;
+
+    background:
+        repeating-linear-gradient(
+            90deg,
+            var(--green-dark) 0 12px,
+            transparent 12px 20px
+        );
+
+    opacity:.45;
+}
+
+.cinema h3{
+    margin:
+        8px 0 22px;
+
+    color:var(--green-dark);
+
+    font:
+        10px var(--mono);
+
+    letter-spacing:.20em;
+}
+
+.frame{
+    color:#363a31;
+
+    font:
+        72px var(--mono);
+
+    letter-spacing:-.08em;
+}
+
+.cinema p{
+    color:#686352;
+
+    font:
+        10px/1.8 var(--mono);
+}
+
+.frame-note{
+    color:#5d674e !important;
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.footer{
+    display:flex;
+    justify-content:space-between;
+
+    padding-top:18px;
+
+    color:#aaa38d;
+
+    font:
+        8px var(--mono);
+
+    letter-spacing:.10em;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media(max-width:900px){
+
+    .contents{
+        grid-template-columns:1fr;
+    }
+
+    .sidebar{
+        display:flex;
+
+        overflow-x:auto;
+
+        padding:10px;
+
+        border-right:0;
+
+        border-bottom:
+            1px solid
+            var(--line);
+    }
+
+    .sidebar-label,
+    .sidebar-footer{
+        display:none;
+    }
+
+    .nav-item{
+        min-width:max-content;
+        margin:0;
+    }
+
+    .hero,
+    .about-grid,
+    .thazhal,
+    .contact{
+        grid-template-columns:1fr;
+    }
+
+    .hero{
+        min-height:auto;
+    }
+
+    .skills-grid{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+}
+
+
+@media(max-width:600px){
+
+    .shell{
+        width:96vw;
+
+        padding-top:18px;
+    }
+
+    .topbar .status span:not(:first-child){
+        display:none;
+    }
+
+    .folder-tab{
+        width:180px;
+
+        margin-left:5%;
+    }
+
+    .folder-body{
+        border-radius:
+            0 9px 9px 9px;
+    }
+
+    .panel{
+        padding:18px;
+    }
+
+    .hero{
+        gap:25px;
+    }
+
+    .hero h1{
+        font-size:52px;
+    }
+
+    .instrument{
+        min-height:290px;
+    }
+
+    .projects,
+    .skills-grid{
+        grid-template-columns:1fr;
+    }
+
+    .section-head{
+        align-items:flex-start;
+    }
+
+    .footer{
+        display:block;
+
+        line-height:2;
+    }
+}
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     BOOT
+     ===================================================== -->
+
+<div class="boot" id="boot">
+
+    <div class="boot-box">
+
+        <div class="boot-line">
+            VGS / ENGINEERING DOSSIER
+        </div>
+
+        <div class="boot-line">
+            INITIALISING DOCUMENT STRUCTURE...
+        </div>
+
+        <div class="boot-line">
+            LOADING PROFILE / PROJECTS / SKILLS / THAZHAL...
+        </div>
+
+        <div class="boot-line">
+            CHECKING INTERFACE INTEGRITY........ OK
+        </div>
+
+        <div class="boot-line">
+            EXTERNAL DEPENDENCIES........ NONE
+        </div>
+
+        <div class="boot-line">
+            OPENING FOLDER.
+        </div>
+
+        <div class="boot-bar">
+            <span></span>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<main class="shell">
+
+
+<!-- =====================================================
+     TOP BAR
+     ===================================================== -->
+
+<header class="topbar">
+
+    <div>
+        <strong>VGS</strong>
+        / PERSONAL ENGINEERING DOSSIER
+    </div>
+
+    <div class="status">
+
+        <span>
+            <i class="dot"></i>
+            SYSTEM ONLINE
+        </span>
+
+        <span>
+            LOCAL / 001
+        </span>
+
+        <span>
+            REV. 01
+        </span>
+
+    </div>
+
+</header>
+
+
+
+<!-- =====================================================
+     PHYSICAL FOLDER
+     ===================================================== -->
+
+<div class="folder-stage">
+
+<div class="folder" id="folder">
+
+
+<!-- folder tab -->
+
+<div class="folder-tab"></div>
+
+
+
+<!-- folder body -->
+
+<div class="folder-body">
+
+
+<!-- =====================================================
+     FOLDER HEADER
+     ===================================================== -->
+
+<div class="folder-header">
+
+    <div class="folder-title">
+
+        <div class="folder-icon"></div>
+
+        <b>
+            GOPALASUBRAMANIAN_V
+        </b>
+
+    </div>
+
+    <div class="folder-meta">
+        ECE / ENGINEERING / PERSONAL DOSSIER
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     CONTENTS
+     ===================================================== -->
+
+<div class="contents">
+
+
+<!-- =====================================================
+     SIDEBAR
+     ===================================================== -->
+
+<aside class="sidebar">
+
+    <div class="sidebar-label">
+        DOCUMENT INDEX
+    </div>
+
+
+    <button
+        class="nav-item active"
+        data-section="profile"
+    >
+        <span class="nav-num">01</span>
+        <span class="nav-name">PROFILE</span>
+    </button>
+
+
+    <button
+        class="nav-item"
+        data-section="about"
+    >
+        <span class="nav-num">02</span>
+        <span class="nav-name">ABOUT</span>
+    </button>
+
+
+    <button
+        class="nav-item"
+        data-section="projects"
+    >
+        <span class="nav-num">03</span>
+        <span class="nav-name">PROJECTS</span>
+    </button>
+
+
+    <button
+        class="nav-item"
+        data-section="skills"
+    >
+        <span class="nav-num">04</span>
+        <span class="nav-name">SKILLS</span>
+    </button>
+
+
+    <button
+        class="nav-item"
+        data-section="thazhal"
+    >
+        <span class="nav-num">05</span>
+        <span class="nav-name">THAZHAL</span>
+    </button>
+
+
+    <button
+        class="nav-item"
+        data-section="contact"
+    >
+        <span class="nav-num">06</span>
+        <span class="nav-name">CONTACT</span>
+    </button>
+
+
+    <div class="sidebar-footer">
+
+        CLASSIFICATION: PUBLIC<br>
+        FORMAT: PHYSICAL FOLDER<br>
+        STATUS: DEVELOPING<br>
+        © VGS
+
+    </div>
+
+</aside>
+
+
+
+<!-- =====================================================
+     PAPER CONTENT
+     ===================================================== -->
+
+<section class="panel">
+
+
+
+<!-- =====================================================
+     PROFILE
+     ===================================================== -->
+
+<div
+    class="section active"
+    id="profile"
+>
+
+<div class="hero">
+
+
+<div>
+
+    <div class="eyebrow">
+        Electronics & Communication Engineer
+    </div>
+
+
+    <h1>
+        GOPALASUBRAMANIAN
+        <span>V</span>
+    </h1>
+
+
+    <p class="hero-copy">
+
+        An Electronics and Communication Engineering
+        student focused on understanding and building
+        systems across electronics, VLSI, embedded
+        technology and software.
+
+    </p>
+
+
+    <div class="hero-meta">
+
+        <span class="chip">
+            VLSI
+        </span>
+
+        <span class="chip">
+            EMBEDDED SYSTEMS
+        </span>
+
+        <span class="chip">
+            ELECTRONICS
+        </span>
+
+        <span class="chip">
+            SOFTWARE
+        </span>
+
+    </div>
+
+</div>
+
+
+
+<!-- technical paper insert -->
+
+<div class="instrument">
+
+    <div class="instrument-label">
+        SIGNAL / PROFILE TRACE
+    </div>
+
+
+    <div class="instrument-screen">
+
+        <div class="wave">
+
+            <svg
+                viewBox="0 0 600 180"
+                preserveAspectRatio="none"
+            >
+
+                <path
+                    d="
+                    M0 100
+                    L70 100
+                    L90 40
+                    L110 160
+                    L130 100
+                    L200 100
+                    L220 72
+                    L240 128
+                    L260 100
+                    L330 100
+                    L350 25
+                    L370 175
+                    L390 100
+                    L470 100
+                    L490 65
+                    L510 135
+                    L530 100
+                    L600 100
+                    "
+                    fill="none"
+                    stroke="#43563d"
+                    stroke-width="2"
+                />
+
+            </svg>
+
+        </div>
+
+    </div>
+
+
+    <div class="instrument-data">
+
+        <span>
+            MODE
+            <b>ENGINEER</b>
+        </span>
+
+        <span>
+            FOCUS
+            <b>BUILD</b>
+        </span>
+
+        <span>
+            REV
+            <b>01</b>
+        </span>
+
+    </div>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- =====================================================
+     ABOUT
+     ===================================================== -->
+
+<div
+    class="section"
+    id="about"
+>
+
+<div class="section-head">
+
+    <div>
+
+        <div class="eyebrow">
+            Document 02 / Identity
+        </div>
+
+        <h2>
+            ABOUT
+        </h2>
+
+    </div>
+
+    <div class="section-index">
+        PROFILE_RECORD
+    </div>
+
+</div>
+
+
+
+<div class="about-grid">
+
+
+<article class="document">
+
+    <h3>
+        ENGINEERING PROFILE
+    </h3>
+
+    <p>
+
+        Electronics and Communication Engineering
+        student interested in VLSI, embedded systems
+        and electronics.
+
+    </p>
+
+    <p>
+
+        The approach is deliberately broad:
+        understand the theory, understand the mechanism,
+        then build something with it.
+
+    </p>
+
+</article>
+
+
+
+<article class="document">
+
+    <h3>
+        IDENTIFICATION DATA
+    </h3>
+
+    <div class="spec">
+
+        <div>NAME</div>
+        <div>GOPALASUBRAMANIAN V</div>
+
+        <div>DOMAIN</div>
+        <div>ELECTRONICS & COMMUNICATION</div>
+
+        <div>FOCUS</div>
+        <div>VLSI / EMBEDDED / ELECTRONICS</div>
+
+        <div>EDUCATION</div>
+        <div>B.E. ECE</div>
+
+        <div>STATUS</div>
+        <div>STUDENT / BUILDER</div>
+
+    </div>
+
+</article>
+
+
+
+<article class="document">
+
+    <h3>
+        EDUCATION
+    </h3>
+
+    <div class="spec">
+
+        <div>2024–2028</div>
+
+        <div>
+            SRI SAIRAM ENGINEERING COLLEGE<br>
+            B.E. ELECTRONICS & COMMUNICATION ENGINEERING
+        </div>
+
+
+        <div>2022–2024</div>
+
+        <div>
+            MAHARISHI VIDYA MANDIR<br>
+            CLASS 12 / CBSE
+        </div>
+
+
+        <div>2020–2022</div>
+
+        <div>
+            MAHARISHI VIDYA MANDIR<br>
+            CLASS 10 / CBSE
+        </div>
+
+    </div>
+
+</article>
+
+
+
+<article class="document">
+
+    <h3>
+        LANGUAGES
+    </h3>
+
+    <div class="spec">
+
+        <div>ENGLISH</div>
+        <div>FLUENT</div>
+
+        <div>TAMIL</div>
+        <div>FLUENT</div>
+
+        <div>HINDI</div>
+        <div>INTERMEDIATE</div>
+
+        <div>JAPANESE</div>
+        <div>BASICS</div>
+
+    </div>
+
+</article>
+
+
+</div>
+
+</div>
+
+
+
+<!-- =====================================================
+     PROJECTS
+     ===================================================== -->
+
+<div
+    class="section"
+    id="projects"
+>
+
+<div class="section-head">
+
+    <div>
+
+        <div class="eyebrow">
+            Document 03 / Build Records
+        </div>
+
+        <h2>
+            PROJECTS
+        </h2>
+
+    </div>
+
+    <div class="section-index">
+        ENGINEERING_LOG
+    </div>
+
+</div>
+
+
+
+<div class="projects">
+
+
+<article class="project">
+
+    <div class="project-number">
+        PROJECT / 001
+    </div>
+
+    <h3>
+        Velocity Control Beacons
+    </h3>
+
+    <p>
+
+        A developing concept for reducing the speed
+        of electric vehicles in areas where speed
+        restriction is necessary.
+
+    </p>
+
+    <div class="project-tags">
+
+        <span class="project-tag">
+            ECE
+        </span>
+
+        <span class="project-tag">
+            CONTROL
+        </span>
+
+        <span class="project-tag">
+            VEHICLE SYSTEMS
+        </span>
+
+    </div>
+
+</article>
+
+
+
+<article class="project">
+
+    <div class="project-number">
+        PROJECT / 002
+    </div>
+
+    <h3>
+        Thazhal
+    </h3>
+
+    <p>
+
+        A student-focused technical learning initiative
+        built around domain-based expert sessions and
+        shared academic resources.
+
+    </p>
+
+    <div class="project-tags">
+
+        <span class="project-tag">
+            LEADERSHIP
+        </span>
+
+        <span class="project-tag">
+            TECHNICAL COMMUNITY
+        </span>
+
+        <span class="project-tag">
+            LEARNING
+        </span>
+
+    </div>
+
+</article>
+
+
+</div>
+
+</div>
+
+
+
+<!-- =====================================================
+     SKILLS
+     ===================================================== -->
+
+<div
+    class="section"
+    id="skills"
+>
+
+<div class="section-head">
+
+    <div>
+
+        <div class="eyebrow">
+            Document 04 / Technical Inventory
+        </div>
+
+        <h2>
+            SKILLS
+        </h2>
+
+    </div>
+
+    <div class="section-index">
+        CAPABILITY_MAP
+    </div>
+
+</div>
+
+
+
+<div class="skills-grid">
+
+
+<article class="skill-box">
+
+    <h3>
+        PROGRAMMING
+    </h3>
+
+    <ul>
+        <li>Python</li>
+        <li>C</li>
+        <li>C++</li>
+        <li>GW-BASIC</li>
+        <li>HTML</li>
+    </ul>
+
+</article>
+
+
+
+<article class="skill-box">
+
+    <h3>
+        DATA / TOOLS
+    </h3>
+
+    <ul>
+        <li>SQL</li>
+        <li>Excel</li>
+        <li>Power BI</li>
+        <li>MATLAB</li>
+    </ul>
+
+</article>
+
+
+
+<article class="skill-box">
+
+    <h3>
+        CORE ECE
+    </h3>
+
+    <ul>
+        <li>Circuit Analysis</li>
+        <li>Analog Circuits</li>
+        <li>Digital Circuits</li>
+        <li>Microcontrollers</li>
+        <li>Microprocessors</li>
+    </ul>
+
+</article>
+
+
+
+<article class="skill-box">
+
+    <h3>
+        PROFESSIONAL
+    </h3>
+
+    <ul>
+        <li>Teamwork</li>
+        <li>Communication</li>
+        <li>Leadership</li>
+        <li>Adaptability</li>
+        <li>Pressure Handling</li>
+    </ul>
+
+</article>
+
+
+
+<article class="skill-box">
+
+    <h3>
+        TECHNICAL INTEREST
+    </h3>
+
+    <ul>
+        <li>VLSI</li>
+        <li>Embedded Systems</li>
+        <li>Electronics</li>
+        <li>Engineering Systems</li>
+    </ul>
+
+</article>
+
+
+
+<article class="skill-box">
+
+    <h3>
+        ACTIVITIES
+    </h3>
+
+    <ul>
+        <li>IEEE Events</li>
+        <li>VLSI Workshops</li>
+        <li>SDG Scout Activities</li>
+        <li>Technical Community Building</li>
+    </ul>
+
+</article>
+
+
+</div>
+
+</div>
+
+
+
+<!-- =====================================================
+     THAZHAL
+     ===================================================== -->
+
+<div
+    class="section"
+    id="thazhal"
+>
+
+<div class="section-head">
+
+    <div>
+
+        <div class="eyebrow">
+            Document 05 / Independent Initiative
+        </div>
+
+        <h2>
+            THAZHAL
+        </h2>
+
+    </div>
+
+    <div class="section-index">
+        COMMUNITY_DOSSIER
+    </div>
+
+</div>
+
+
+
+<div class="thazhal">
+
+
+<div class="thazhal-mark">
+
+    <small>
+        STUDENT TECHNICAL KNOWLEDGE
+    </small>
+
+    <strong>
+        T
+    </strong>
+
+</div>
+
+
+
+<div class="thazhal-copy">
+
+    <div class="eyebrow">
+        Student-led technical initiative
+    </div>
+
+    <h3>
+        THAZHAL
+    </h3>
+
+    <p>
+
+        A study-buddy style organisation initiated
+        to help students improve technical proficiency
+        through domain-based expert sessions.
+
+    </p>
+
+    <p>
+
+        It also developed a notes-hive model for
+        sharing academic resources with students.
+
+    </p>
+
+
+    <div class="thazhal-facts">
+
+        <div>
+            TYPE
+            <b>
+                NON-PROFIT STUDENT INITIATIVE
+            </b>
+        </div>
+
+        <div>
+            FOCUS
+            <b>
+                TECHNICAL KNOWLEDGE
+            </b>
+        </div>
+
+        <div>
+            MODEL
+            <b>
+                EXPERT SESSIONS
+            </b>
+        </div>
+
+        <div>
+            RESOURCE
+            <b>
+                NOTES HIVE
+            </b>
+        </div>
+
+    </div>
+
+</div>
+
+
+</div>
+
+</div>
+
+
+
+<!-- =====================================================
+     CONTACT
+     ===================================================== -->
+
+<div
+    class="section"
+    id="contact"
+>
+
+<div class="section-head">
+
+    <div>
+
+        <div class="eyebrow">
+            Document 06 / Communication
+        </div>
+
+        <h2>
+            CONTACT
+        </h2>
+
+    </div>
+
+    <div class="section-index">
+        OPEN_CHANNEL
+    </div>
+
+</div>
+
+
+
+<div class="contact">
+
+
+<article class="contact-card">
+
+    <div class="eyebrow">
+        DIRECT CHANNELS
+    </div>
+
+    <h3>
+        Let's connect.
+    </h3>
+
+
+    <a
+        class="contact-link"
+        href="mailto:vgopalasubramanian@gmail.com"
+    >
+        <span>MAIL</span>
+        vgopalasubramanian@gmail.com
+    </a>
+
+
+    <a
+        class="contact-link"
+        href="https://www.linkedin.com/in/gopalasubramanian-v-038804328/"
+        target="_blank"
+        rel="noopener"
+    >
+        <span>LINKEDIN</span>
+        GOPALASUBRAMANIAN V
+    </a>
+
+
+    <a
+        class="contact-link"
+        href="https://github.com/veegeeyes1429"
+        target="_blank"
+        rel="noopener"
+    >
+        <span>GITHUB</span>
+        veegeeyes1429
+    </a>
+
+
+    <div class="contact-link">
+
+        <span>LOCATION</span>
+        CHENNAI, INDIA
+
+    </div>
+
+</article>
+
+
+
+<!-- small cinema reference -->
+
+<article class="cinema">
+
+    <h3>
+        FRAME / 24
+    </h3>
+
+    <div
+        class="frame"
+        id="frameCounter"
+    >
+        001
+    </div>
+
+    <p>
+
+        Every system has a sequence.
+        Every sequence has a frame.
+        This one happens to be the frame
+        where the folder opens.
+
+    </p>
+
+    <p class="frame-note">
+
+        CINEMATIC REFERENCE /
+        KEEP THE DETAIL, CUT THE NOISE.
+
+    </p>
+
+</article>
+
+
+</div>
+
+</div>
+
+
+
+</section>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- =====================================================
+     FOOTER
+     ===================================================== -->
+
+<footer class="footer">
+
+    <span>
+        VGS / ENGINEERING DOSSIER / SINGLE-FILE BUILD
+    </span>
+
+    <span>
+        DESIGNED TO BE READ, NOT DECORATED
+    </span>
+
+</footer>
+
+
+</main>
+
+
+
+<script>
+
+/* =========================================================
+   FOLDER NAVIGATION
+   ========================================================= */
+
+const navItems =
+    document.querySelectorAll(".nav-item");
+
+const sections =
+    document.querySelectorAll(".section");
+
+
+navItems.forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        const target =
+            button.dataset.section;
+
+
+        navItems.forEach(item => {
+
+            item.classList.remove("active");
+
+        });
+
+
+        button.classList.add("active");
+
+
+        sections.forEach(section => {
+
+            section.classList.toggle(
+                "active",
+                section.id === target
+            );
+
+        });
+
+    });
+
+});
+
+
+
+/* =========================================================
+   SUBTLE PHYSICAL FOLDER MOVEMENT
+   ========================================================= */
+
+const folder =
+    document.getElementById("folder");
+
+
+window.addEventListener(
+    "pointermove",
+    event => {
+
+        if(window.innerWidth <= 900){
+            return;
+        }
+
+
+        const x =
+            event.clientX /
+            window.innerWidth -
+            .5;
+
+
+        const y =
+            event.clientY /
+            window.innerHeight -
+            .5;
+
+
+        folder.style.transform =
+            `
+            rotateY(${x * 1.5}deg)
+            rotateX(${y * -1.1}deg)
+            `;
+
+    }
+);
+
+
+window.addEventListener(
+    "pointerleave",
+    () => {
+
+        folder.style.transform = "";
+
+    }
+);
+
+
+
+/* =========================================================
+   CINEMATIC FRAME COUNTER
+   ========================================================= */
+
+const frameCounter =
+    document.getElementById("frameCounter");
+
+let frame = 1;
+
+
+setInterval(() => {
+
+    frame++;
+
+    if(frame > 240){
+        frame = 1;
+    }
+
+    frameCounter.textContent =
+        String(frame).padStart(3,"0");
+
+}, 1000 / 24);
+
+
+
+/* =========================================================
+   BOOT SCREEN
+   ========================================================= */
+
+window.addEventListener(
+    "load",
+    () => {
+
+        setTimeout(
+            () => {
+
+                document
+                    .getElementById("boot")
+                    .classList
+                    .add("hidden");
+
+            },
+            1850
+        );
+
+    }
+);
+
+</script>
+
+</body>
+</html>
